@@ -1,9 +1,7 @@
+require("dotenv").config({ path: ".env" });
 const mongoose = require('mongoose');
 
-// const mongoUrl = MONGODB_URI;
-// mongoose.Promise = bluebird;
-
-const connectToMongoDB = async() => mongoose.connect('mongodb://127.0.0.1:27017/',
+const connectToMongoDB = async() => mongoose.connect(process.env.DB_URL,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
