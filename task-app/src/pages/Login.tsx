@@ -2,8 +2,8 @@ import React from "react";
 import Button from '../components/TestButton'
 import { GoogleLogin } from '@react-oauth/google';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-
-console.log(process.env.REACT_APP_GOOGLE_CLIENT_ID)
+import Cookies from 'js-cookie'
+import jwt from 'jsonwebtoken';
 
 export default class Login extends React.Component {
         render() {
@@ -13,7 +13,10 @@ export default class Login extends React.Component {
                 <Button/>
                 <GoogleLogin
                     onSuccess={credentialResponse => {
-                        console.log(credentialResponse);
+                        const credential = credentialResponse.credential;
+                        const decodedToken = jwt.decode(credential, { complete: true });
+                        const googleId = decodedToken.payload.sub;
+                        console.log("googleID : " + googleId);
                     }}
                     onError={() => {
                         console.log('Login Failed');
