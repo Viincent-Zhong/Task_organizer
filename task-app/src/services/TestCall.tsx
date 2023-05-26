@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { BACKEND_URL } from '../constants'
 
 export function testCall(): Promise<any> {
-  const url = 'http://localhost:3000/auth';
+  const url = `${BACKEND_URL}/auth`;
   return axios.get(url);
 }

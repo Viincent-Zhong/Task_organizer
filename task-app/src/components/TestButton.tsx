@@ -1,6 +1,5 @@
 import React from 'react';
 import { testCall } from '../services/TestCall';
-// import axios from 'axios';
 
 function Button() {
     const handleClick = async () => {
