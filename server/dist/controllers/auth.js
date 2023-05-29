@@ -21,11 +21,11 @@ exports.test = function (req, res) {
 exports.logging_in = function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         // Cookie already setup
-        if (req.cookies.google_auth)
+        if (req.cookies.auth)
             return res.status(200).send('User already connected');
         const gc = req.body.gcredential;
         if (!gc)
-            return res.status(500).send('Invalid body');
+            return res.status(400).send('Invalid body');
         // Decrypt credential
         const decryptedBytes = CryptoJS.AES.decrypt(gc, process.env.ENCRYPT_KEY);
         const credentials = decryptedBytes.toString(CryptoJS.enc.Utf8);
@@ -35,11 +35,13 @@ exports.logging_in = function (req, res) {
         const crypted_gid = CryptoJS.AES.encrypt(decoded.sub, process.env.ENCRYPT_KEY).toString();
         yield user_1.UserModel.findOne({ email: email }).then(user => {
             var stop = false;
+            var id;
             // User not found
             if (!user) {
+                id = new mongoose.Types.ObjectId();
                 // Create new user
                 const newUser = {
-                    _id: new mongoose.Types.ObjectId(),
+                    _id: id,
                     email: email,
                     googleId: crypted_gid,
                     tasks: [],
@@ -52,12 +54,15 @@ exports.logging_in = function (req, res) {
                     res.status(500).json(err);
                 });
             }
+            else {
+                id = user._id;
+            }
             // Setting new cookie
             if (!stop) {
-                res.cookie('google_auth', crypted_gid, {
-                    httpOnly: true,
-                    secure: true,
-                    sameSite: 'strict',
+                res.cookie('auth', id, {
+                    // httpOnly: true,
+                    // secure: true,
+                    // sameSite: 'strict',
                     signed: true,
                     maxAge: 10800000 // Expires in 3 hours
                 });

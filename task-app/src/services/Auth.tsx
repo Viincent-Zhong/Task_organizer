@@ -1,8 +1,10 @@
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom"
 import { BACKEND_URL } from '../constants'
+import Cookies from 'js-cookie';
 
-export const successedLogin = credentialResponse => {
+export const succeedLogin = (credentialResponse) => {
     const credential = credentialResponse.credential;
 
     // Encrypt credential
@@ -12,8 +14,7 @@ export const successedLogin = credentialResponse => {
         return res
     };
 
-    const res = login(crypted);
-    console.log('Response: ' + res)
+    return login(crypted);
 };
 
 export const failedLogin = () => {
@@ -22,7 +23,6 @@ export const failedLogin = () => {
 
 function loginCall(credential): Promise<any> {
     const url = `${BACKEND_URL}/auth/login`;
-    console.log('sending gid : ' + credential)
     return axios.post(url,
         {
             gcredential: credential
@@ -34,4 +34,8 @@ function loginCall(credential): Promise<any> {
             withCredentials: true // Set cookie in header
         }
     );
+}
+
+export const isLoggedIn = () => {
+    return Cookies.get('auth') !== undefined;
 }

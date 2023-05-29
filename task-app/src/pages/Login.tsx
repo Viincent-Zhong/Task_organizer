@@ -1,21 +1,42 @@
 import React from "react";
-import Button from '../components/TestButton'
 import { GoogleLogin } from '@react-oauth/google';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { successedLogin, failedLogin } from '../services/Auth'
+import { succeedLogin, failedLogin } from '../services/Auth'
+import { useNavigate } from "react-router-dom"
+import { isLoggedIn } from "../services/Auth"
 
-export default class Login extends React.Component {
-        render() {
+// export default class Login extends React.Component {
+export const Login = () => {
+    const navigate = useNavigate();
+
+    React.useEffect(() => {
+        if (isLoggedIn()) {
+            navigate('/');
+        }
+    })
+
+    const handleLogin = (credential) => {
+        succeedLogin(credential).then((res) => {
+            var status = Math.floor(status / 100) // one digit for hundreds
+            console.log('Status : ' + status)
+            if (status == 2) { // Good code
+                navigate('/')
+            } else {
+            }
+        }).catch((_) => {
+            console.log('Error trying to connect')
+        });
+    };
+
         return (
             <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
             <div>
-                <Button/>
                 <GoogleLogin
-                    onSuccess={successedLogin}
+                
+                    onSuccess={handleLogin}
                     onError={failedLogin}
                 />
             </div>
             </GoogleOAuthProvider>
         );
-    }
 }
