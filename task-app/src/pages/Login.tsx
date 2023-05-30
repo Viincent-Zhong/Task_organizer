@@ -28,15 +28,21 @@ export const Login = () => {
         });
     };
 
-        return (
-            <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-            <div>
-                <GoogleLogin
-                
-                    onSuccess={handleLogin}
-                    onError={failedLogin}
-                />
-            </div>
-            </GoogleOAuthProvider>
-        );
+    const btnCentered = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh'
+    }
+
+    return (
+        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+        <div style={btnCentered}>
+            <GoogleLogin
+                onSuccess={handleLogin}
+                onError={failedLogin}
+            />
+        </div>
+        </GoogleOAuthProvider>
+    );
 }
