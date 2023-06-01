@@ -1,4 +1,3 @@
-import { timeStamp } from 'console';
 import { Schema, model } from 'mongoose';
 
 // Task interface
@@ -14,8 +13,8 @@ interface ITask {
 const taskSchema = new Schema<ITask>({
     name: { type: String, required: true },
     _id: { type: Schema.Types.ObjectId, required: true },
-    time_start: { type: Schema.Types.Date, required: true },
-    time_end: { type: Schema.Types.Date, required: true },
+    time_start: { type: Schema.Types.Date, required: false },
+    time_end: { type: Schema.Types.Date, required: false },
     categories: { type: [Schema.Types.ObjectId], required: true }
 })
 

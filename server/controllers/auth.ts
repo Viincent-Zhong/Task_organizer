@@ -6,7 +6,6 @@ var CryptoJS = require("crypto-js");
 exports.test = function(req, res) {
     const googleAuthCookie = req.cookies.google_auth;
 
-    console.log('got cookie: ' + googleAuthCookie)
     res.send('doggi dog')
 };
 
