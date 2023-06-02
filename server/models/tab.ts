@@ -1,32 +1,32 @@
 import { Schema, model } from 'mongoose';
 
-// Filter interface
-interface IFilter {
+// Tab interface
+interface ITab {
     name: string;
     _id: Schema.Types.ObjectId;
     createdBy: Schema.Types.ObjectId;
-    categories: [Schema.Types.ObjectId];
+    tasks: [Schema.Types.ObjectId];
 }
 
-// Filter model
-const filterSchema = new Schema<IFilter>({
+// Tab model
+const tabSchema = new Schema<ITab>({
     name: { type: String, required: true },
     _id: { type: Schema.Types.ObjectId, required: true },
     createdBy: { type: Schema.Types.ObjectId, required: true },
-    categories: { type: [Schema.Types.ObjectId], required: true }
+    tasks: { type: [Schema.Types.ObjectId], required: true }
 })
 
-interface IFilters {
+interface ITabs {
     _id: Schema.Types.ObjectId;
     createdBy: Schema.Types.ObjectId;
-    filters: [IFilter]
+    tabs: [ITab]
 }
 
-// filters model
-const filtersSchema = new Schema<IFilters>({
+// Tabs model
+const tabsSchema = new Schema<ITabs>({
     _id: { type: Schema.Types.ObjectId, required: true },
     createdBy: { type: Schema.Types.ObjectId, required: true },
-    filters: { type: [filterSchema], required: true }
+    tabs: { type: [tabSchema], required: true }
 })
 
-export const FiltersModel = model('Filters', filtersSchema);
+export const TabsModel = model('Tabs', tabsSchema);

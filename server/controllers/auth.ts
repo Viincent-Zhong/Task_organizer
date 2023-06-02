@@ -1,13 +1,29 @@
 const mongoose = require('mongoose')
 import { UserModel } from "../models/user";
+import { CategoriesModel } from "../models/category";
+import { FiltersModel } from "../models/filter";
+import { TabsModel } from "../models/tab";
+import { TasksModel } from "../models/task";
 const jwt = require('jsonwebtoken');
 var CryptoJS = require("crypto-js");
 
 exports.test = function(req, res) {
-    const googleAuthCookie = req.cookies.google_auth;
-
     res.send('doggi dog')
 };
+
+function initUserRelatedModels(userID, tabId, categoryId, filterId, taskId) {
+    // Invalid userID
+    if (!mongoose.Types.ObjectId.isValid(userID))
+        throw Error('Invalid user')
+
+    // Initiating all models required
+    TabsModel.create({_id: tabId, createdBy: userID, tabs: [] })
+    CategoriesModel.create({_id: categoryId, createdBy: userID, categories: [] })
+    FiltersModel.create({_id: filterId, createdBy: userID, filters: [] })
+    TasksModel.create({_id: taskId, createdBy: userID, tasks: [] })
+
+    return {tabId, categoryId, filterId, taskId}
+}
 
 exports.logging_in = async function(req, res) {
     // Cookie already setup
@@ -30,14 +46,21 @@ exports.logging_in = async function(req, res) {
         var id;
         // User not found
         if (!user) {
-            id = new mongoose.Types.ObjectId()
+            const tabId = new mongoose.Types.ObjectId()
+            const categoryId = new mongoose.Types.ObjectId()
+            const filterId = new mongoose.Types.ObjectId()
+            const taskId = new mongoose.Types.ObjectId()        
+            const id = new mongoose.Types.ObjectId()
+
             // Create new user
             const newUser = {
                 _id: id,
                 email: email,
                 googleId: crypted_gid,
-                tasks: [],
-                category: []
+                tasks: taskId,
+                categories: categoryId,
+                filters: filterId,
+                tabs: tabId
             }
 
             UserModel.create(newUser).then(_ => {
@@ -46,6 +69,11 @@ exports.logging_in = async function(req, res) {
                 stop = true
                 res.status(500).json(err)
             });
+
+            // Create a categories, filters, tabs, tasks models
+            try {
+                initUserRelatedModels(id, tabId, categoryId, filterId, taskId);
+            } catch (error) {/* Error */}
         } else {
             id = user._id;
         }
