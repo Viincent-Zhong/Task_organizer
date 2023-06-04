@@ -1,0 +1,39 @@
+.modal-center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(128, 128, 128, 0.5); /* Gris semi-transparent */
+    overflow: hidden;
+    z-index: 9999;
+}
+
+.modal-container {
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    color: #533f3f69;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    border: 2px solid #544f4f;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    background: #80808080;
+    color: #80808080;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+}

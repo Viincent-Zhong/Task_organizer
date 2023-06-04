@@ -7,7 +7,7 @@ function Button({name: Name}) {
 
         console.log(response.data);
     };
-    return <button style ={{width: '200px'}} onClick={handleClick}>{Name}</button>;
+    return <button style ={{width: '200px', height: '300px'}} onClick={handleClick}>{Name}</button>;
 }
 
 export default Button;
