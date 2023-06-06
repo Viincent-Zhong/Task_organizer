@@ -1,30 +1,99 @@
-import React from "react";
+import React, { useState } from "react";
+import { GlobalModal, Modal } from '../components/Modal'
 
-const Header = () => {
+export const TaskHeader = () => {
     return (
-        <div></div>
+        <div style={{width: '300px', height: '300px', background: 'red'}}></div>
     );
 }
 
-// name: string;
-// createdBy: Schema.Types.ObjectId;
-// description: string;
-// time_start: Schema.Types.Date;
-// time_end: Schema.Types.Date;
-// categories: [Schema.Types.ObjectId];
+// Sur la task il y aura
+// Champs pour rename le nom
+// Champs pour changer description
+// Liste des catégories
+// Champs pour changer la date de début
+// Champs pour changer la date de fin
+// Bouton pour supprimer
+const TMName = ({closeButton: CloseButton}) => {
+    return (
+        <div style={{position: 'relative', height: '50px', width: '30px', background: 'yellow'}}>
+            {CloseButton}
+        </div>
+    )
+}
 
+const TMDescription = ({closeButton: CloseButton}) => {
+    return (
+        <div style={{position: 'relative', height: '50px', width: '50px', background: 'yellow'}}>
+            {CloseButton}
+        </div>
+    )
+}
 
-/*
-    Modal pour gérer la carte
+const TMCategories = ({closeButton: CloseButton}) => {
+    return (
+        <div style={{position: 'relative'}}>
+            {CloseButton}
+        </div>
+    )
+}
 
-    Button pour modifier la carte           
-    Button pour créer une carte             
-*/
+const TMDate = ({closeButton: CloseButton}) => {
+    return (
+        <div style={{position: 'relative'}}>
+            {CloseButton}
+        </div>
+    )
+}
 
-export const Task = () => {
+const TMDelete = ({closeButton: CloseButton}) => {
+    return (
+        <div style={{position: 'relative', height: '50px', width: '500px', background: 'blue'}}>
+            {CloseButton}
+        </div>
+    )
+}
+
+const TaskModal = ({closeButton: CloseButton}) => {
+    const [selectedModal, setModal] = useState(null)
+    const closeModal = () => {
+        setModal(null);
+    }
+
     return (
         <div>
-            <Header/>
+            <div style={{position: 'relative', width: '400px', height: '300px', background: 'white'}}>
+                {CloseButton}
+                <button onClick={() => {setModal(1)}}>
+                    <div style={{width: '75px', height: '50px', background: 'purple'}}></div>
+                </button>
+                <button onClick={() => {setModal(2)}}>
+                    <div style={{width: '75px', height: '50px', background: 'green'}}></div>
+                </button>
+                <button onClick={() => {setModal(3)}}>
+                    <div style={{width: '75px', height: '50px', background: 'yellow'}}></div>
+                </button>
+            </div>
+            <Modal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TMName}></Modal>
+            <Modal modalNumber={2} isOpen={selectedModal} onClose={closeModal} component={TMDelete}></Modal>
+            <Modal modalNumber={3} isOpen={selectedModal} onClose={closeModal} component={TMDescription}></Modal>
+        </div>
+    );
+}
+
+export const Task = () => {
+    const [selectedModal, setModal] = useState(null)
+    const closeModal = () => {
+        setModal(null);
+    }
+
+    return (
+        <div style={{position: 'relative'}}>
+            <button onClick={() => {setModal(1)}}>
+                {/* mettre la task */}
+                <div style={{width: '300px', height: '600px', background: 'blue'}}></div>
+            </button>
+            <GlobalModal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TaskModal}></GlobalModal>
         </div>
     );
 }
