@@ -1,4 +1,4 @@
-const task = require('../controllers/auth')
+const task = require('../controllers/task')
 const express = require('express');
 
 const taskRouter = express.Router()
@@ -36,7 +36,7 @@ taskRouter.patch('/start/:id', task.modifyTaskStart)
 taskRouter.patch('/end/:id', task.modifyTaskEnd)
 
 // Modify task tab
-taskRouter.patch('/tab/:id', task.modifyTab)
+taskRouter.patch('/tab/:id/:tabId', task.modifyTab)
 
 
 module.exports = taskRouter

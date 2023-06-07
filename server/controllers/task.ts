@@ -1,14 +1,6 @@
 const mongoose = require('mongoose')
 import { ITask, TaskModel } from "../models/task";
 
-// name: string;
-// _id: Schema.Types.ObjectId;
-// createdBy: Schema.Types.ObjectId;
-// description: string;
-// time_start: Schema.Types.Date;
-// time_end: Schema.Types.Date;
-// categories: [Schema.Types.ObjectId];
-
 // Return all tasks
 exports.getAllTasks = async function(req, res) {
     const userID = req.cookies.auth;
@@ -18,8 +10,6 @@ exports.getAllTasks = async function(req, res) {
 
     try {
         const tasks = await TaskModel.find({ createdBy: userID }).exec();
-        if (!tasks)
-            return res.status(404).send('No tasks found for the user');
         return res.status(200).send(tasks);
     } catch (err) {
         return res.status(400).send(err);
@@ -28,7 +18,7 @@ exports.getAllTasks = async function(req, res) {
 
 /* Get one task
     req: 
-        - taskID
+        param - taskID
 */
 exports.getOneTask = async function(req, res) {
     const userID = req.cookies.auth;
@@ -40,7 +30,7 @@ exports.getOneTask = async function(req, res) {
     try {
         const task = await TaskModel.findOne({ _id: taskID, createdBy: userID }).exec();
         if (!task)
-            return res.status(404).send('No tasks found for the user');
+            return res.status(404).send('Did not found specified task');
         return res.status(200).send(task);
     } catch (err) {
         return res.status(400).send(err);
@@ -48,7 +38,8 @@ exports.getOneTask = async function(req, res) {
 };
 
 /* Add one task
-    req: ITask
+    req:
+        body - ITask
 */
 exports.addTask = async function(req, res) {
     const userID = req.cookies.auth;
@@ -70,7 +61,7 @@ exports.addTask = async function(req, res) {
 
 /* Delete one task
     req: 
-    - taskID
+        param - taskID
 */
 exports.deleteTask = async function(req, res) {
     const userID = req.cookies.auth;
@@ -89,8 +80,8 @@ exports.deleteTask = async function(req, res) {
 
 /* Modify one task name
     req: 
-        - taskID
-        - name
+        param - taskID
+        param - name
 */
 exports.modifyTaskName = async function(req, res) {
     const userID = req.cookies.auth;
@@ -110,8 +101,8 @@ exports.modifyTaskName = async function(req, res) {
 
 /* Modify one task description
     req: 
-        - taskID
-        - description
+        param - taskID
+        body - description
 */
 exports.modifyTaskDescription = async function(req, res) {
     const userID = req.cookies.auth;
@@ -131,8 +122,8 @@ exports.modifyTaskDescription = async function(req, res) {
 
 /* Modify one task category
     req: 
-        - taskID
-        - categoryID
+        param - taskID
+        param - categoryID
 */
 exports.addTaskCategory = async function(req, res) {
     const userID = req.cookies.auth;
@@ -152,8 +143,8 @@ exports.addTaskCategory = async function(req, res) {
 
 /* Modify one task category
     req: 
-        - taskID
-        - categoryID
+        param - taskID
+        param - categoryID
 */
 exports.removeTaskCategory = async function(req, res) {
     const userID = req.cookies.auth;
@@ -173,8 +164,8 @@ exports.removeTaskCategory = async function(req, res) {
 
 /* Modify one task start date
     req: 
-        - taskID
-        - start
+        param - taskID
+        body - start
 */
 exports.modifyTaskStart = async function(req, res) {
     const userID = req.cookies.auth;
@@ -194,8 +185,8 @@ exports.modifyTaskStart = async function(req, res) {
 
 /* Modify one task end date
     req: 
-        - taskID
-        - end
+        param - taskID
+        body - end
 */
 exports.modifyTaskEnd = async function(req, res) {
     const userID = req.cookies.auth;
@@ -215,13 +206,13 @@ exports.modifyTaskEnd = async function(req, res) {
 
 /* Modify one task tab
     req: 
-        - taskID
-        - tab
+        param - taskID
+        param - tab
 */
 exports.modifyTab = async function(req, res) {
     const userID = req.cookies.auth;
     const taskID = req.params.id;
-    const tab = req.body && req.body.tab;
+    const tab = req.params.tabId;
 
     if (!userID || !taskID || !tab)
         return res.status(400).send('Invalid request');

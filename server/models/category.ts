@@ -3,7 +3,7 @@ import { Schema, model } from 'mongoose';
 // Category interface
 export interface ICategory {
     name: string;
-    createdBy?: { type: Schema.Types.ObjectId, required: true },
+    createdBy?: Schema.Types.ObjectId;
     _id?: Schema.Types.ObjectId;
 }
 
