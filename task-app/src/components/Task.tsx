@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { GlobalModal, Modal } from '../components/Modal'
+import { GlobalModal, Modal, OpenButton } from '../components/Modal'
 
 export const TaskHeader = () => {
     return (
@@ -64,9 +64,7 @@ const TaskModal = ({closeButton: CloseButton}) => {
         <div>
             <div style={{position: 'relative', width: '400px', height: '300px', background: 'white'}}>
                 {CloseButton}
-                <button onClick={() => {setModal(1)}}>
-                    <div style={{width: '75px', height: '50px', background: 'purple'}}></div>
-                </button>
+                <OpenButton onClick={() => setModal(1)} component={() => {return (<div style={{width: '75px', height: '50px', background: 'purple'}}/>)}}/>
                 <button onClick={() => {setModal(2)}}>
                     <div style={{width: '75px', height: '50px', background: 'green'}}></div>
                 </button>
