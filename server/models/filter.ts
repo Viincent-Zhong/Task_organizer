@@ -1,10 +1,10 @@
 import { Schema, model } from 'mongoose';
 
 // Filter interface
-interface IFilter {
+export interface IFilter {
     name: string;
-    _id: Schema.Types.ObjectId;
-    createdBy: Schema.Types.ObjectId;
+    _id?: Schema.Types.ObjectId;
+    createdBy?: Schema.Types.ObjectId;
     categories: [Schema.Types.ObjectId];
 }
 
@@ -16,17 +16,4 @@ const filterSchema = new Schema<IFilter>({
     categories: { type: [Schema.Types.ObjectId], required: true }
 })
 
-interface IFilters {
-    _id: Schema.Types.ObjectId;
-    createdBy: Schema.Types.ObjectId;
-    filters: [IFilter]
-}
-
-// filters model
-const filtersSchema = new Schema<IFilters>({
-    _id: { type: Schema.Types.ObjectId, required: true },
-    createdBy: { type: Schema.Types.ObjectId, required: true },
-    filters: { type: [filterSchema], required: true }
-})
-
-export const FiltersModel = model('Filters', filtersSchema);
+export const FilterModel = model('Filter', filterSchema);

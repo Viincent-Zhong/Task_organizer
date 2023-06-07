@@ -1,6 +1,5 @@
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom"
 import { BACKEND_URL } from '../constants'
 import Cookies from 'js-cookie';
 

@@ -5,10 +5,6 @@ interface IUser {
     _id: Schema.Types.ObjectId;
     email: string;
     googleId: string;
-    tasks: Schema.Types.ObjectId;
-    categories: Schema.Types.ObjectId;
-    filters: Schema.Types.ObjectId;
-    tabs: Schema.Types.ObjectId;
 }
 
 // User model
@@ -26,10 +22,6 @@ const userSchema = new Schema<IUser>({
         }
     },
     googleId: { type: String, required: true },
-    tasks: { type: Schema.Types.ObjectId, required: true },
-    categories: { type: Schema.Types.ObjectId, required: true },
-    filters: { type: Schema.Types.ObjectId, required: true },
-    tabs: { type: Schema.Types.ObjectId, required: true }
 })
 
 export const UserModel = model('User', userSchema);

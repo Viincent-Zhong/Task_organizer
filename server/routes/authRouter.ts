@@ -11,3 +11,5 @@ authRouter.get('/', auth.test)
 authRouter.post('/login', auth.logging_in)
 
 module.exports = authRouter
+
+export {};

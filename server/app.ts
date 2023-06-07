@@ -17,9 +17,11 @@ app.use(bodyParser.json());
 
 // Routes
 const authRouter = require('./routes/authRouter')
-
+const taskRouter = require('./routes/taskRouter')
 
 app.use('/auth', authRouter)
+app.use('/task', taskRouter)
+
 
 app.listen(process.env.PORT, () => {
     console.log(process.env.PORT)

@@ -14,7 +14,9 @@ export const TaskHeader = () => {
 // Champs pour changer la date de début
 // Champs pour changer la date de fin
 // Bouton pour supprimer
-const TMName = ({closeButton: CloseButton}) => {
+
+const TaskName = ({closeButton: CloseButton, userID, taskName }) => {
+    console.log(userID)
     return (
         <div style={{position: 'relative', height: '50px', width: '30px', background: 'yellow'}}>
             {CloseButton}
@@ -22,7 +24,7 @@ const TMName = ({closeButton: CloseButton}) => {
     )
 }
 
-const TMDescription = ({closeButton: CloseButton}) => {
+const TaskDescription = ({closeButton: CloseButton, userID}) => {
     return (
         <div style={{position: 'relative', height: '50px', width: '50px', background: 'yellow'}}>
             {CloseButton}
@@ -30,7 +32,7 @@ const TMDescription = ({closeButton: CloseButton}) => {
     )
 }
 
-const TMCategories = ({closeButton: CloseButton}) => {
+const TaskCategories = ({closeButton: CloseButton, userID}) => {
     return (
         <div style={{position: 'relative'}}>
             {CloseButton}
@@ -38,7 +40,7 @@ const TMCategories = ({closeButton: CloseButton}) => {
     )
 }
 
-const TMDate = ({closeButton: CloseButton}) => {
+const TaskDate = ({closeButton: CloseButton, userID}) => {
     return (
         <div style={{position: 'relative'}}>
             {CloseButton}
@@ -46,7 +48,7 @@ const TMDate = ({closeButton: CloseButton}) => {
     )
 }
 
-const TMDelete = ({closeButton: CloseButton}) => {
+const TaskDelete = ({closeButton: CloseButton, userID}) => {
     return (
         <div style={{position: 'relative', height: '50px', width: '500px', background: 'blue'}}>
             {CloseButton}
@@ -64,17 +66,37 @@ const TaskModal = ({closeButton: CloseButton}) => {
         <div>
             <div style={{position: 'relative', width: '400px', height: '300px', background: 'white'}}>
                 {CloseButton}
-                <OpenButton onClick={() => setModal(1)} component={() => {return (<div style={{width: '75px', height: '50px', background: 'purple'}}/>)}}/>
-                <button onClick={() => {setModal(2)}}>
-                    <div style={{width: '75px', height: '50px', background: 'green'}}></div>
-                </button>
-                <button onClick={() => {setModal(3)}}>
-                    <div style={{width: '75px', height: '50px', background: 'yellow'}}></div>
-                </button>
+                <OpenButton onClick={() => setModal(1)} component={() => {return (
+                    <div style={{width: '75px', height: '50px', background: 'red'}}/>
+                    )}}/>
+
+                <OpenButton onClick={() => setModal(2)} component={() => {return (
+                    <div style={{width: '75px', height: '50px', background: 'orange'}}/>
+                )}}/>
+
+                <OpenButton onClick={() => setModal(3)} component={() => {return (
+                    <div style={{width: '75px', height: '50px', background: 'yellow'}}/>
+                )}}/>
+
+                <OpenButton onClick={() => setModal(4)} component={() => {return (
+                    <div style={{width: '75px', height: '50px', background: 'green'}}/>
+                )}}/>
+
+                <OpenButton onClick={() => setModal(5)} component={() => {return (
+                    <div style={{width: '75px', height: '50px', background: 'indigo'}}/>
+                    )}}/>
+
+                <OpenButton onClick={() => setModal(6)} component={() => {return (
+                    <div style={{width: '75px', height: '50px', background: 'purple'}}/>
+                    )}}/>
+
             </div>
-            <Modal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TMName}></Modal>
-            <Modal modalNumber={2} isOpen={selectedModal} onClose={closeModal} component={TMDelete}></Modal>
-            <Modal modalNumber={3} isOpen={selectedModal} onClose={closeModal} component={TMDescription}></Modal>
+            <Modal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TaskName} userID={1} taskName={'dog'}></Modal>
+            <Modal modalNumber={2} isOpen={selectedModal} onClose={closeModal} component={TaskDescription} userID={1}></Modal>
+            <Modal modalNumber={3} isOpen={selectedModal} onClose={closeModal} component={TaskCategories} userID={1}></Modal>
+            <Modal modalNumber={4} isOpen={selectedModal} onClose={closeModal} component={TaskDate} userID={1}></Modal>
+            <Modal modalNumber={5} isOpen={selectedModal} onClose={closeModal} component={TaskDate} userID={1}></Modal>
+            <Modal modalNumber={6} isOpen={selectedModal} onClose={closeModal} component={TaskDelete} userID={1}></Modal>
         </div>
     );
 }
