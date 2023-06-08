@@ -10,23 +10,43 @@ interface ITab {
 
 function requestGetAllTab(): Promise<any> {
     const url = `${BACKEND_URL}/tab/`;
-    return axios.get<ITab>(url,
+    return axios.get<ITab[]>(url,
         {
             withCredentials: true // Set cookie in header
         }
     );
 }
 
-function requestAddOneTab(): Promise<any> {
+export const getAllTab = async () => {
+    var res = await requestGetAllTab()
+
+    if (res.status === 200) {
+        return res.data;
+    } else {
+        throw new Error('Request error')
+    }
+}
+
+function requestAddTab(tab: ITab): Promise<any> {
     const url = `${BACKEND_URL}/tab/`;
-    return axios.post<ITab>(url,
+    return axios.post(url, JSON.stringify(tab),
         {
             withCredentials: true // Set cookie in header
         }
     );
 }
 
-function requestDeleteOneTab(tabID): Promise<any> {
+export const addTab = async (tab: ITab) => {
+    var res = await requestAddTab(tab)
+
+    if (res.status === 200)
+        return
+    else {
+        throw new Error('Request error')
+    }
+}
+
+function requestDeleteTab(tabID): Promise<any> {
     const url = `${BACKEND_URL}/tab/`;
     return axios.delete(url,
         {
@@ -38,9 +58,19 @@ function requestDeleteOneTab(tabID): Promise<any> {
     );
 }
 
-function requestUpdateTabName(tabID, name): Promise<any> {
-    const url = `${BACKEND_URL}/tab/`;
-    return axios.patch(url, {},
+export const deleteTab = async (tabID) => {
+    var res = await requestDeleteTab(tabID)
+
+    if (res.status === 200)
+        return;
+    else {
+        throw new Error('Request error')
+    }
+}
+
+function requestUpdateTabName(tabID, name: string): Promise<any> {
+    const url = `${BACKEND_URL}/tab/name/`;
+    return axios.patch(url, {name: name},
         {
             params: {
                 id: tabID
@@ -48,4 +78,14 @@ function requestUpdateTabName(tabID, name): Promise<any> {
             withCredentials: true // Set cookie in header
         }
     );
+}
+
+export const updateTabName = async (tabID, name: string) => {
+    var res = await requestUpdateTabName(tabID, name)
+
+    if (res.status === 200)
+        return;
+    else {
+        throw new Error('Request error')
+    }
 }

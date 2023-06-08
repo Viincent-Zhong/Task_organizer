@@ -18,7 +18,6 @@ export const Login = () => {
     const handleLogin = (credential) => {
         succeedLogin(credential).then((res) => {
             var status = Math.floor(res.status / 100) // one digit for hundreds
-            console.log('Status : ' + status)
             
             if (status == 2) { // Good code
                 navigate('/')
