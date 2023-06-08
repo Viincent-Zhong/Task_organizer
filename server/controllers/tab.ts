@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 import { ITab, TabModel } from "../models/tab";
 
-// Get all categories
+// Get all tabs
 exports.getAllTab = async function(req, res) {
     const userID = req.cookies.auth;
 

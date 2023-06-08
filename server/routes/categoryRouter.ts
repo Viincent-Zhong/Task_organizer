@@ -8,13 +8,23 @@ const categoryRouter = express.Router()
 // Get all categories
 categoryRouter.get('/', category.getAllCategories)
 
-// Add one category
+/* Add a category
+    req:
+        body - ICategory
+*/
 categoryRouter.post('/', category.addCategory)
 
-// Delete one category
+/* Delete a category
+    req:
+        param - id
+*/
 categoryRouter.delete('/:id', category.deleteCategory)
 
-// Modify category name
+/* Modify a category name
+    req:
+        param - id
+        body - name
+*/
 categoryRouter.patch('/name/:id', category.modifyCategoryName)
 
 module.exports = categoryRouter

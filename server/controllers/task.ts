@@ -18,7 +18,7 @@ exports.getAllTasks = async function(req, res) {
 
 /* Get one task
     req: 
-        param - taskID
+        param - id
 */
 exports.getOneTask = async function(req, res) {
     const userID = req.cookies.auth;
@@ -61,7 +61,7 @@ exports.addTask = async function(req, res) {
 
 /* Delete one task
     req: 
-        param - taskID
+        param - id
 */
 exports.deleteTask = async function(req, res) {
     const userID = req.cookies.auth;
@@ -78,10 +78,10 @@ exports.deleteTask = async function(req, res) {
     }
 };
 
-/* Modify one task name
+/* Modify task name
     req: 
-        param - taskID
-        param - name
+        param - id
+        body - name
 */
 exports.modifyTaskName = async function(req, res) {
     const userID = req.cookies.auth;
@@ -99,9 +99,9 @@ exports.modifyTaskName = async function(req, res) {
     }
 };
 
-/* Modify one task description
+/* Modify task description
     req: 
-        param - taskID
+        param - id
         body - description
 */
 exports.modifyTaskDescription = async function(req, res) {
@@ -120,10 +120,10 @@ exports.modifyTaskDescription = async function(req, res) {
     }
 };
 
-/* Modify one task category
+/* Add category to task
     req: 
-        param - taskID
-        param - categoryID
+        param - id
+        param - categoryId
 */
 exports.addTaskCategory = async function(req, res) {
     const userID = req.cookies.auth;
@@ -141,10 +141,10 @@ exports.addTaskCategory = async function(req, res) {
     }
 };
 
-/* Modify one task category
+/* Remove category from task
     req: 
-        param - taskID
-        param - categoryID
+        param - id
+        param - categoryId
 */
 exports.removeTaskCategory = async function(req, res) {
     const userID = req.cookies.auth;
@@ -162,9 +162,9 @@ exports.removeTaskCategory = async function(req, res) {
     }
 };
 
-/* Modify one task start date
+/* Modify task start date
     req: 
-        param - taskID
+        param - id
         body - start
 */
 exports.modifyTaskStart = async function(req, res) {
@@ -183,9 +183,9 @@ exports.modifyTaskStart = async function(req, res) {
     }
 };
 
-/* Modify one task end date
+/* Modify task end date
     req: 
-        param - taskID
+        param - id
         body - end
 */
 exports.modifyTaskEnd = async function(req, res) {
@@ -206,8 +206,8 @@ exports.modifyTaskEnd = async function(req, res) {
 
 /* Modify one task tab
     req: 
-        param - taskID
-        param - tab
+        param - id
+        param - tabId
 */
 exports.modifyTab = async function(req, res) {
     const userID = req.cookies.auth;

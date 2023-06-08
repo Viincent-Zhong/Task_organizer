@@ -8,13 +8,23 @@ const tabRouter = express.Router()
 // Get all tabs
 tabRouter.get('/', tab.getAllTab)
 
-// Add one tab
+/* Add a tab
+    req:
+        body - ITab
+*/
 tabRouter.post('/', tab.addTab)
 
-// Delete one tab
+/* Delete a tab
+    req:
+        param - id
+*/
 tabRouter.delete('/:id', tab.deleteTab)
 
-// Modify tab name
+/* Modify a tab name
+    req:
+        param - id
+        body - name
+*/
 tabRouter.patch('/name/:id', tab.modifyTabName)
 
 module.exports = tabRouter

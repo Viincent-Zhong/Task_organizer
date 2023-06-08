@@ -5,23 +5,41 @@ const filterRouter = express.Router()
 
 // All routes start with /filter
 
-// Get all categories
+// Get all filters
 filterRouter.get('/', filter.getAllFilters)
 
-// Add one filter
+/* Add a filter
+    req:
+        body - IFilter
+*/
 filterRouter.post('/', filter.addFilter)
 
-// Delete one filter
+/* Delete a filter
+    req:
+        param - id
+*/
 filterRouter.delete('/:id', filter.deleteFilter)
 
-// Modify filter name
+/* Modify a filter name
+    req:
+        param - id
+        body - name
+*/
 filterRouter.patch('/name/:id', filter.modifyFilterName)
 
-// Add category in filter
-filterRouter.post('/category/:id/:categoryId', filter.addFilterCategory)
+/* Add one filter category
+    req: 
+        param - id
+        param - categoryID
+*/
+filterRouter.patch('/category/:id/:categoryId', filter.addFilterCategory)
 
-// Delete category in filter
-filterRouter.delete('/category/:id/:categoryId', filter.removeFilterCategory)
+/* Remove one filter category
+    req: 
+        param - id
+        param - categoryID
+*/
+filterRouter.patch('/category/:id/:categoryId', filter.removeFilterCategory)
 
 module.exports = filterRouter
 

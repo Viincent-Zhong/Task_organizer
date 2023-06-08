@@ -1,11 +1,6 @@
 const mongoose = require('mongoose')
 import { IFilter, FilterModel } from "../models/filter";
 
-// name: string;
-// _id?: Schema.Types.ObjectId;
-// createdBy?: Schema.Types.ObjectId;
-// categories: [Schema.Types.ObjectId];
-
 // Get all filters
 exports.getAllFilters = async function(req, res) {
     const userID = req.cookies.auth;
@@ -13,78 +8,78 @@ exports.getAllFilters = async function(req, res) {
     if (!userID)
         return res.status(400).send('Invalid request')
     try {
-        const categories = await FilterModel.find({ createdBy: userID }).exec();
-        return res.status(200).send(categories);
+        const filters = await FilterModel.find({ createdBy: userID }).exec();
+        return res.status(200).send(filters);
     } catch (err) {
         return res.status(400).send(err);
     }
 }
 
-/* Add a category
+/* Add a filter
     req:
         body - IFilter
 */
 exports.addFilter = async function(req, res) {
     const userID = req.cookies.auth;
-    const category: IFilter = req.body
+    const filter: IFilter = req.body
 
-    if (!userID || !category)
+    if (!userID || !filter)
         return res.status(400).send('Invalid request')
 
-    category._id = new mongoose.Types.ObjectId();
-    category.createdBy = userID;
+    filter._id = new mongoose.Types.ObjectId();
+    filter.createdBy = userID;
 
     try {
-        await FilterModel.insertMany([category]);
+        await FilterModel.insertMany([filter]);
         return res.status(200).send('Filter created');
     } catch (err) {
         return res.status(400).send(err);
     }
 }
 
-/* Delete a category
+/* Delete a filter
     req:
         param - id
 */
 exports.deleteFilter = async function(req, res) {
     const userID = req.cookies.auth;
-    const categoryID = req.params.id;
+    const filterID = req.params.id;
 
-    if (!userID || !categoryID)
+    if (!userID || !filterID)
         return res.status(400).send('Invalid request')
 
     try {
-        await FilterModel.deleteOne({ _id: categoryID, createdBy: userID });
+        await FilterModel.deleteOne({ _id: filterID, createdBy: userID });
         return res.status(200).send('Filter deleted');
     } catch (err) {
         return res.status(400).send(err);
     }
 }
 
-/* Modify a category name
+/* Modify a filter name
     req:
         param - id
         body - name
 */
 exports.modifyFilterName = async function(req, res) {
     const userID = req.cookies.auth;
-    const categoryID = req.params.id;
+    const filterID = req.params.id;
     const name = req.body && req.body.name;
 
-    if (!userID || !categoryID || !name)
+    if (!userID || !filterID || !name)
         return res.status(400).send('Invalid request')
 
     try {
-        await FilterModel.updateOne({ _id: categoryID, createdBy: userID }, { name: name });
+        await FilterModel.updateOne({ _id: filterID, createdBy: userID }, { name: name });
         return res.status(200).send('Filter name modified');
     } catch (err) {
         return res.status(400).send(err);
     }
 }
 
-/* Modify one filter category
+/* Add one filter category
     req: 
-        param - filterID
+        param - id
         param - categoryID
 */
 exports.addFilterCategory = async function(req, res) {
@@ -96,16 +91,16 @@ exports.addFilterCategory = async function(req, res) {
         return res.status(400).send('Invalid request');
 
     try {
-        await FilterModel.updateOne({ _id: filterID, createdBy: userID }, {"$push": { categories : categoryID } })
-        return res.status(200).send('Filter category added');
+        await FilterModel.updateOne({ _id: filterID, createdBy: userID }, {"$push": { filters : categoryID } })
+        return res.status(200).send('Filter filter added');
     } catch (err) {
         return res.status(400).send(err);
     }
 };
 
-/* Modify one filter category
+/* Remove one filter category
     req: 
-        param - filterID
+        param - id
         param - categoryID
 */
 exports.removeFilterCategory = async function(req, res) {
@@ -117,8 +112,8 @@ exports.removeFilterCategory = async function(req, res) {
         return res.status(400).send('Invalid request');
 
     try {
-        await FilterModel.updateOne({ _id: filterID, createdBy: userID }, {"$pull": { categories : categoryID } })
-        return res.status(200).send('Filter category removed');
+        await FilterModel.updateOne({ _id: filterID, createdBy: userID }, {"$pull": { filters : categoryID } })
+        return res.status(200).send('Filter filter removed');
     } catch (err) {
         return res.status(400).send(err);
     }
