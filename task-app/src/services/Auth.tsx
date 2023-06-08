@@ -27,9 +27,6 @@ function loginCall(credential): Promise<any> {
             gcredential: credential
         },
         {
-            headers: {
-                'Content-Type': 'application/json'
-            },
             withCredentials: true // Set cookie in header
         }
     );

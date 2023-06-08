@@ -1,23 +1,23 @@
 import axios from 'axios';
 import { BACKEND_URL } from '../constants'
 
-interface ITab {
+interface ICategory {
     name: string;
     _id?: string;
     createdBy?: string;
 }
 
-function requestGetAllTab(): Promise<any> {
-    const url = `${BACKEND_URL}/tab/`;
-    return axios.get<ITab[]>(url,
+function requestGetAllCategory(): Promise<any> {
+    const url = `${BACKEND_URL}/category/`;
+    return axios.get<ICategory[]>(url,
         {
             withCredentials: true // Set cookie in header
         }
     );
 }
 
-export const getAllTab = async () => {
-    var res = await requestGetAllTab()
+export const getAllCategory = async () => {
+    var res = await requestGetAllCategory()
 
     if (res.status === 200) {
         return res.data;
@@ -26,17 +26,17 @@ export const getAllTab = async () => {
     }
 }
 
-function requestAddTab(tab: ITab): Promise<any> {
-    const url = `${BACKEND_URL}/tab/`;
-    return axios.post(url, JSON.stringify(tab),
+function requestAddCategory(category: ICategory): Promise<any> {
+    const url = `${BACKEND_URL}/category/`;
+    return axios.post(url, JSON.stringify(category),
         {
             withCredentials: true // Set cookie in header
         }
     );
 }
 
-export const addTab = async (tab: ITab) => {
-    var res = await requestAddTab(tab)
+export const addCategory = async (category: ICategory) => {
+    var res = await requestAddCategory(category)
 
     if (res.status === 200)
         return
@@ -45,20 +45,20 @@ export const addTab = async (tab: ITab) => {
     }
 }
 
-function requestDeleteTab(tabID): Promise<any> {
-    const url = `${BACKEND_URL}/tab/`;
+function requestDeleteCategory(categoryID): Promise<any> {
+    const url = `${BACKEND_URL}/category/`;
     return axios.delete(url,
         {
             params: {
-                id: tabID
+                id: categoryID
             },
             withCredentials: true // Set cookie in header
         }
     );
 }
 
-export const deleteTab = async (tabID) => {
-    var res = await requestDeleteTab(tabID)
+export const deleteCategory = async (categoryID) => {
+    var res = await requestDeleteCategory(categoryID)
 
     if (res.status === 200)
         return;
@@ -67,20 +67,20 @@ export const deleteTab = async (tabID) => {
     }
 }
 
-function requestUpdateTabName(tabID, name: string): Promise<any> {
-    const url = `${BACKEND_URL}/tab/name/`;
+function requestUpdateCategoryName(categoryID, name: string): Promise<any> {
+    const url = `${BACKEND_URL}/category/name/`;
     return axios.patch(url, {name: name},
         {
             params: {
-                id: tabID
+                id: categoryID
             },
             withCredentials: true // Set cookie in header
         }
     );
 }
 
-export const updateTabName = async (tabID, name: string) => {
-    var res = await requestUpdateTabName(tabID, name)
+export const updateCategoryName = async (categoryID, name: string) => {
+    var res = await requestUpdateCategoryName(categoryID, name)
 
     if (res.status === 200)
         return;

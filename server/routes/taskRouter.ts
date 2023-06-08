@@ -68,7 +68,7 @@ taskRouter.patch('/start/:id', task.modifyTaskStart)
 */
 taskRouter.patch('/end/:id', task.modifyTaskEnd)
 
-/* Modify one task tab
+/* Modify task tab
     req: 
         param - id
         param - tabId
