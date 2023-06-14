@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BACKEND_URL } from '../constants'
 
-interface ICategory {
+export interface ICategory {
     name: string;
     _id?: string;
     createdBy?: string;

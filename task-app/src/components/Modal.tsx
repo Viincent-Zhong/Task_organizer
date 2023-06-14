@@ -1,6 +1,29 @@
 import React, { useRef, useEffect } from 'react';
 import '../styles/modal.css'
 
+/* WARNING
+    The modal must have a props name closeButton
+
+    Example:
+        const modal = ({closeButton: CloseButton})
+
+*/
+
+/* Usage example
+    const [selectedModal, setModal] = useState(null)
+    const closeModal = () => {
+        setModal(null);
+    }
+
+    ...
+
+    <button className="btn btn-primary" onClick={() => noPropagation(setModal(1))}>
+        <span className="plus">+</span> Add a table
+    </button>
+    <Modal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TaskName}></Modal>
+
+*/
+
 const CloseButton = ({onClose}) => {
     const handleClose = (event) => {
         event.stopPropagation();
@@ -12,6 +35,14 @@ const CloseButton = ({onClose}) => {
     );
 } 
 
+export const noPropagation = (onClick) => {
+    const handleClick = (event) => {
+        event.stopPropagation();
+        onClick();
+    }
+    return handleClick
+}
+
 export const OpenButton = ({ component: Component, onClick, ...componentProps }) => {
     const handleClick = (event) => {
         event.stopPropagation();
@@ -20,7 +51,7 @@ export const OpenButton = ({ component: Component, onClick, ...componentProps })
 
     return (
         <button onClick={handleClick}>
-            <Component {...componentProps} />
+            <Component onClick={handleClick} {...componentProps} />
         </button>
     )
 }
