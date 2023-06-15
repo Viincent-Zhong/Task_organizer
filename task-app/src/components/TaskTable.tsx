@@ -4,11 +4,7 @@ import { ITab } from "../services/Tab";
 import { addTab, deleteTab, updateTabName } from '../services/Tab'
 import { useDispatch, useSelector } from 'react-redux';
 import { sliceAddTab, sliceDeleteTab, sliceUpdateTab } from '../data/tabSlice'
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.min.js';
-import '../styles/emote.css'
-import '../styles/form.css'
+import { TaskCreator } from "./Task";
 
 const TableModifierModal = ({closeButton: CloseButton, tab, setTab, delTab}) => {
     const handleNameSubmit = (event) => {
@@ -73,9 +69,11 @@ const TableModifierModal = ({closeButton: CloseButton, tab, setTab, delTab}) => 
 }
 
 export const TaskTable = ({tab} : { tab: ITab }) => {
+    // button avec le name -> modal : rename, supprimer
     return (
-        <div className="">
-            <h2>{tab.name}</h2>
+        <div className="col-sm-1 col-md-1 col-lg-1 tab-name">
+            <button type="button" className="btn btn-primary btn-lg btn-block">{tab.name}</button>
+            <TaskCreator/>
         </div>
     )
 }
@@ -88,23 +86,24 @@ export const TableCreator = () => {
         var newTab : ITab = {
             name: inputValue
         }
-
-        try {
-            // addTab(newTab) // call API
-            dispatch(sliceAddTab(newTab))
-        } catch (error) {
-            // popup
+        
+        if (inputValue.trim().length > 0) {
+            try {
+                // addTab(newTab) // call API
+                dispatch(sliceAddTab(newTab))
+                event.target.value = ''; // Clear input value
+            } catch (error) {
+                // popup
+            }
         }
     }
 
     return (
-        <div className="col">
-            <div className="col-lg-1">
+        <div className="col-sm-1 col-md-1 col-lg-1">
             <div className="card-body tab">
                 <input className="form" placeholder={"+ Add a table"}
                 onBlur={createTab}
                 />
-            </div>
             </div>
         </div>
     )

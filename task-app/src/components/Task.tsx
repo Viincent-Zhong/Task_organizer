@@ -117,3 +117,12 @@ export const Task = () => {
         </div>
     );
 }
+
+export const TaskCreator = () => {
+    return (
+        <div>
+            <input className="form" placeholder={"+ Add a task"}
+            />
+        </div>
+    )
+}

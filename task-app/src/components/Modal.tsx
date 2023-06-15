@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-import '../styles/modal.css'
 
 /* WARNING
     The modal must have a props name closeButton

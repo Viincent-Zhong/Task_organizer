@@ -6,6 +6,12 @@
     background: violet;
 }
 
+@media (min-height: 100vh) {
+    .container {
+      height: 100%; /* Utilise 100% lorsque la hauteur dépasse 100vh */
+    }
+}
+
 .group_tab {
     display: flex;
     flex-direction: column;
