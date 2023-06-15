@@ -9,7 +9,7 @@ export const Home = () => {
 
     return (
         <div id="kanban-board">
-            <div className="container-fluid bite">
+            <div className="container-fluid">
                 <div className="row">
                 {tabs.map((tab: ITab) => (
                     <TaskTable tab={tab}/>
