@@ -1,0 +1,15 @@
+.no-border-form {
+    border: none;
+    transform: scaleY(1.2);
+}
+
+.form {
+    border: 2px solid #453e3efa;
+    border-radius: 5px;
+    transform: scaleY(1.2);
+}
+
+.tab {
+    display: flex;
+    flex-direction: column;
+}
