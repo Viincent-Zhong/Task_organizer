@@ -23,8 +23,8 @@ export const Home = () => {
         <div id="kanban-board">
             <div className="container-fluid">
                 <div className="row">
-                {tabs.map((tab: ITab) => (
-                    <TaskTable tab={tab}/>
+                {tabs.map((tab: ITab, index: number) => (
+                    <TaskTable key={tab._id} tab={tab} modalNumber={index + 1}/>
                 ))}
                 <TableCreator/>
                 </div>

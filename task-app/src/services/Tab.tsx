@@ -66,7 +66,6 @@ export const deleteTab = async (tabID) => {
 
 function requestUpdateTabName(tabID, name: string): Promise<any> {
     const url = `${BACKEND_URL}/tab/name/${tabID}`;
-    console.log(url)
     return axios.patch(url, {name: name},
         {
             withCredentials: true // Set cookie in header

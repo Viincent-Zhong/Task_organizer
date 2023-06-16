@@ -19,7 +19,8 @@ const TableModifierModal = ({closeButton: CloseButton, tab}) => {
                 if (tab._id) {
                     updateTabName(tab._id, inputValue).then(() => {
                         dispatch(sliceUpdateTab({
-                            ...tab, name: inputValue
+                            ...tab,
+                            name: inputValue
                         }))
                     })
                 }
@@ -63,18 +64,17 @@ const TableModifierModal = ({closeButton: CloseButton, tab}) => {
     )
 }
 
-export const TaskTable = ({tab} : { tab: ITab }) => {
+export const TaskTable = ({tab, modalNumber} : { tab: ITab, modalNumber: number }) => {
     const [selectedModal, setModal] = useState(null)
     const closeModal = () => {
         setModal(null);
     }
 
-    // button avec le name -> modal : rename, supprimer
     return (
         <div className="col-sm-1 col-md-1 col-lg-1 tab-name">
-            <button type="button" className="btn btn-primary btn-lg btn-block tab-name" onClick={() => noPropagation(setModal(1))}>{tab.name}</button>
+            <button type="button" className="btn btn-primary btn-lg btn-block tab-name" onClick={() => noPropagation(setModal(modalNumber))}>{tab.name}</button>
             <TaskCreator/>
-            <GlobalModal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TableModifierModal} tab={tab}></GlobalModal>
+            <GlobalModal modalNumber={modalNumber} isOpen={selectedModal} onClose={closeModal} component={TableModifierModal} tab={tab}></GlobalModal>
         </div>
     )
 }
@@ -92,7 +92,6 @@ export const TableCreator = () => {
                 })
                 event.target.value = ''; // Clear input value
             } catch (error) {
-                console.log(error)
                 // popup
             }
         }

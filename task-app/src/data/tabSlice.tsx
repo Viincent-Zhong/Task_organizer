@@ -17,7 +17,7 @@ export const tabSlice = createSlice({
         },
         sliceUpdateTab: (state, action: PayloadAction<ITab>) => {
             const tab = action.payload;
-            const found = state.find(tab => tab._id === tab._id);
+            const found = state.find(indexTab => indexTab._id === tab._id);
             if (found) {
                 found.name = tab.name;
             } else
