@@ -71,10 +71,14 @@ export const TaskTable = ({tab, modalNumber} : { tab: ITab, modalNumber: number 
     }
 
     return (
-        <div className="col-sm-1 col-md-1 col-lg-1 tab-name">
-            <button type="button" className="btn btn-primary btn-lg btn-block tab-name" onClick={() => noPropagation(setModal(modalNumber))}>{tab.name}</button>
-            <TaskCreator/>
-            <GlobalModal modalNumber={modalNumber} isOpen={selectedModal} onClose={closeModal} component={TableModifierModal} tab={tab}></GlobalModal>
+        <div className="col-sm-1 col-md-1 col-lg-1">
+            <div className="tab-bg-parent">
+                {/* <div className="tab-bg"> */}
+                    <button type="button" className="btn tab-name" onClick={() => noPropagation(setModal(modalNumber))}>{tab.name}</button>
+                    <TaskCreator/>
+                    <GlobalModal modalNumber={modalNumber} isOpen={selectedModal} onClose={closeModal} component={TableModifierModal} tab={tab}></GlobalModal>
+                {/* </div> */}
+            </div>
         </div>
     )
 }
