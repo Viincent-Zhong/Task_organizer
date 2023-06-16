@@ -46,12 +46,9 @@ export const addTab = async (tab: ITab) => {
 }
 
 function requestDeleteTab(tabID): Promise<any> {
-    const url = `${BACKEND_URL}/tab/`;
+    const url = `${BACKEND_URL}/tab/${tabID}`;
     return axios.delete(url,
         {
-            params: {
-                id: tabID
-            },
             withCredentials: true // Set cookie in header
         }
     );
@@ -68,12 +65,10 @@ export const deleteTab = async (tabID) => {
 }
 
 function requestUpdateTabName(tabID, name: string): Promise<any> {
-    const url = `${BACKEND_URL}/tab/name/`;
+    const url = `${BACKEND_URL}/tab/name/${tabID}`;
+    console.log(url)
     return axios.patch(url, {name: name},
         {
-            params: {
-                id: tabID
-            },
             withCredentials: true // Set cookie in header
         }
     );

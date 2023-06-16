@@ -2,48 +2,43 @@ import React, { useState } from "react";
 import { GlobalModal, noPropagation } from './Modal'
 import { ITab } from "../services/Tab";
 import { addTab, deleteTab, updateTabName } from '../services/Tab'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { sliceAddTab, sliceDeleteTab, sliceUpdateTab } from '../data/tabSlice'
 import { TaskCreator } from "./Task";
 
-const TableModifierModal = ({closeButton: CloseButton, tab, setTab, delTab}) => {
+const TableModifierModal = ({closeButton: CloseButton, tab}) => {
+    const dispatch = useDispatch();
+
+    // Updating a tab
     const handleNameSubmit = (event) => {
         const inputValue = event.target.value;
         event.stopPropagation();
-        // Creating a new tab
-        if (!tab && inputValue.trim().length > 0) {
+        // Setted new name
+        if (tab && inputValue.trim().length > 0 && tab.name !== inputValue) {
             try {
-                var newTab: ITab = {
-                    name: inputValue
+                if (tab._id) {
+                    updateTabName(tab._id, inputValue).then(() => {
+                        dispatch(sliceUpdateTab({
+                            ...tab, name: inputValue
+                        }))
+                    })
                 }
-                // addTab(newTab)
-                setTab(newTab)
             } catch (error) {
                 // popup
             }
+            event.target.value = ''; // Clear input value
             return;
-        }
-        // Updating a tab name
-        if (tab && tab.name !== inputValue) {
-            try {
-                // if (tab.id)
-                    // updateTabName(tab.id, tab.name)
-                setTab({
-                    ...tab,
-                    name: inputValue
-                })
-            } catch (error) {
-                // popup
-            }
         }
     }
 
     // Deleting a tab
     const handleDelete = (event) => {
         event.stopPropagation();
-        if (tab && tab.id) {
+        if (tab && tab._id) {
             try {
-                // deleteTab(tab.id)
+                deleteTab(tab._id).then(() => {
+                    dispatch(sliceDeleteTab(tab._id))
+                })
             } catch (error) {
                 // popup
             }
@@ -79,7 +74,7 @@ export const TaskTable = ({tab} : { tab: ITab }) => {
         <div className="col-sm-1 col-md-1 col-lg-1 tab-name">
             <button type="button" className="btn btn-primary btn-lg btn-block tab-name" onClick={() => noPropagation(setModal(1))}>{tab.name}</button>
             <TaskCreator/>
-            <GlobalModal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TableModifierModal}></GlobalModal>
+            <GlobalModal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TableModifierModal} tab={tab}></GlobalModal>
         </div>
     )
 }

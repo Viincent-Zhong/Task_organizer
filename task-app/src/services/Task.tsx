@@ -32,12 +32,9 @@ export const getAllTask = async () => {
 }
 
 function requestGetTask(taskID): Promise<any> {
-    const url = `${BACKEND_URL}/task/`;
+    const url = `${BACKEND_URL}/task/${taskID}`;
     return axios.get<ITask>(url,
         {
-            params: {
-                id: taskID
-            },
             withCredentials: true // Set cookie in header
         }
     );
@@ -73,12 +70,9 @@ export const addTask = async (task: ITask) => {
 }
 
 function requestDeleteTask(taskID): Promise<any> {
-    const url = `${BACKEND_URL}/task/`;
+    const url = `${BACKEND_URL}/task/${taskID}`;
     return axios.delete(url,
         {
-            params: {
-                id: taskID
-            },
             withCredentials: true // Set cookie in header
         }
     );
@@ -95,12 +89,9 @@ export const deleteTask = async (taskID) => {
 }
 
 function requestUpdateTaskName(taskID, name: string): Promise<any> {
-    const url = `${BACKEND_URL}/task/name/`;
+    const url = `${BACKEND_URL}/task/name/${taskID}`;
     return axios.patch(url, {name: name},
         {
-            params: {
-                id: taskID
-            },
             withCredentials: true // Set cookie in header
         }
     );
@@ -117,12 +108,9 @@ export const updateTaskName = async (taskID, name: string) => {
 }
 
 function requestUpdateTaskDescription(taskID, description: string): Promise<any> {
-    const url = `${BACKEND_URL}/task/description/`;
+    const url = `${BACKEND_URL}/task/description/${taskID}`;
     return axios.patch(url, {description: description},
         {
-            params: {
-                id: taskID
-            },
             withCredentials: true // Set cookie in header
         }
     );
@@ -139,13 +127,9 @@ export const updateTaskDescription = async (taskID, description: string) => {
 }
 
 function requestAddTaskCategory(taskID, categoryID): Promise<any> {
-    const url = `${BACKEND_URL}/task/category/`;
+    const url = `${BACKEND_URL}/task/category/${taskID}/${categoryID}`;
     return axios.patch(url,
         {
-            params: {
-                id: taskID,
-                categoryId: categoryID
-            },
             withCredentials: true // Set cookie in header
         }
     );
@@ -162,13 +146,9 @@ export const addTaskCategory = async (taskID, categoryID) => {
 }
 
 function requestRemoveTaskCategory(taskID, categoryID): Promise<any> {
-    const url = `${BACKEND_URL}/task/category/`;
+    const url = `${BACKEND_URL}/task/category/${taskID}/${categoryID}`;
     return axios.patch(url,
         {
-            params: {
-                id: taskID,
-                categoryId: categoryID
-            },
             withCredentials: true // Set cookie in header
         }
     );
@@ -185,12 +165,9 @@ export const removeTaskCategory = async (taskID, categoryID) => {
 }
 
 function requestUpdateTaskStart(taskID, start: Date): Promise<any> {
-    const url = `${BACKEND_URL}/task/start/`;
+    const url = `${BACKEND_URL}/task/start/${taskID}`;
     return axios.patch(url, {start: start},
         {
-            params: {
-                id: taskID
-            },
             withCredentials: true // Set cookie in header
         }
     );
@@ -207,12 +184,9 @@ export const updateTaskStart = async (taskID, start: Date) => {
 }
 
 function requestUpdateTaskEnd(taskID, end: Date): Promise<any> {
-    const url = `${BACKEND_URL}/task/end/`;
+    const url = `${BACKEND_URL}/task/end/${taskID}`;
     return axios.patch(url, {end: end},
         {
-            params: {
-                id: taskID
-            },
             withCredentials: true // Set cookie in header
         }
     );
@@ -229,13 +203,9 @@ export const updateTaskEnd = async (taskID, end: Date) => {
 }
 
 function requestUpdateTaskTab(taskID, tabID): Promise<any> {
-    const url = `${BACKEND_URL}/task/tab/`;
+    const url = `${BACKEND_URL}/task/tab/${taskID}/${tabID}`;
     return axios.patch(url, {tabID: tabID},
         {
-            params: {
-                id: taskID,
-                tabId: tabID
-            },
             withCredentials: true // Set cookie in header
         }
     );

@@ -47,12 +47,9 @@ export const addFilter = async (filter: IFilter) => {
 }
 
 function requestDeleteFilter(filterID): Promise<any> {
-    const url = `${BACKEND_URL}/filter/`;
+    const url = `${BACKEND_URL}/filter/${filterID}`;
     return axios.delete(url,
         {
-            params: {
-                id: filterID
-            },
             withCredentials: true // Set cookie in header
         }
     );
@@ -69,12 +66,9 @@ export const deleteFilter = async (filterID) => {
 }
 
 function requestUpdateFilterName(filterID, name: string): Promise<any> {
-    const url = `${BACKEND_URL}/filter/name/`;
+    const url = `${BACKEND_URL}/filter/name/${filterID}`;
     return axios.patch(url, {name: name},
         {
-            params: {
-                id: filterID
-            },
             withCredentials: true // Set cookie in header
         }
     );
@@ -91,13 +85,9 @@ export const updateFilterName = async (filterID, name: string) => {
 }
 
 function requestAddFilterCategory(filterID, categoryID): Promise<any> {
-    const url = `${BACKEND_URL}/filter/category/`;
+    const url = `${BACKEND_URL}/filter/category/${filterID}/${categoryID}`;
     return axios.patch(url,
         {
-            params: {
-                id: filterID,
-                categoryId: categoryID
-            },
             withCredentials: true // Set cookie in header
         }
     );
@@ -114,13 +104,9 @@ export const addFilterCategory = async (filterID, categoryID) => {
 }
 
 function requestRemoveFilterCategory(filterID, categoryID): Promise<any> {
-    const url = `${BACKEND_URL}/filter/category/`;
+    const url = `${BACKEND_URL}/filter/category/${filterID}/${categoryID}`;
     return axios.patch(url,
         {
-            params: {
-                id: filterID,
-                categoryId: categoryID
-            },
             withCredentials: true // Set cookie in header
         }
     );

@@ -46,12 +46,9 @@ export const addCategory = async (category: ICategory) => {
 }
 
 function requestDeleteCategory(categoryID): Promise<any> {
-    const url = `${BACKEND_URL}/category/`;
+    const url = `${BACKEND_URL}/category/${categoryID}`;
     return axios.delete(url,
         {
-            params: {
-                id: categoryID
-            },
             withCredentials: true // Set cookie in header
         }
     );
@@ -68,12 +65,9 @@ export const deleteCategory = async (categoryID) => {
 }
 
 function requestUpdateCategoryName(categoryID, name: string): Promise<any> {
-    const url = `${BACKEND_URL}/category/name/`;
+    const url = `${BACKEND_URL}/category/name/${categoryID}`;
     return axios.patch(url, {name: name},
         {
-            params: {
-                id: categoryID
-            },
             withCredentials: true // Set cookie in header
         }
     );
