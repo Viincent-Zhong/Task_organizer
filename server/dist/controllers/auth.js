@@ -13,13 +13,10 @@ const mongoose = require('mongoose');
 const user_1 = require("../models/user");
 const jwt = require('jsonwebtoken');
 var CryptoJS = require("crypto-js");
-exports.test = function (req, res) {
-    res.send('doggi dog');
-};
 exports.logging_in = function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         // Cookie already setup
-        if (req.cookies.auth)
+        if (req.signedCookies.auth)
             return res.status(200).send('User already connected');
         const gc = req.body.gcredential;
         if (!gc)

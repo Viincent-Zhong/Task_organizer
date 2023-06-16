@@ -8,6 +8,9 @@ export const tabSlice = createSlice({
         sliceAddTab: (state, action: PayloadAction<ITab>) => {
             state.push(action.payload);
         },
+        sliceAddManyTab: (state, action: PayloadAction<ITab[]>) => {
+            state.push(...action.payload);
+        },
         sliceDeleteTab: (state, action) => {
             const id = action.payload;
             return state.filter(tab => tab._id !== id);
@@ -23,6 +26,6 @@ export const tabSlice = createSlice({
     },
 });
 
-export const { sliceAddTab, sliceDeleteTab, sliceUpdateTab } = tabSlice.actions
+export const { sliceAddTab, sliceAddManyTab, sliceDeleteTab, sliceUpdateTab } = tabSlice.actions
 
 export default tabSlice.reducer

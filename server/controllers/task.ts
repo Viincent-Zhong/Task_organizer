@@ -3,7 +3,7 @@ import { ITask, TaskModel } from "../models/task";
 
 // Return all tasks
 exports.getAllTasks = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
 
     if (!userID)
         return res.status(400).send('Invalid request');
@@ -21,7 +21,7 @@ exports.getAllTasks = async function(req, res) {
         param - id
 */
 exports.getOneTask = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const taskID = req.params.id;
 
     if (!userID || !taskID)
@@ -42,7 +42,7 @@ exports.getOneTask = async function(req, res) {
         body - ITask
 */
 exports.addTask = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const task: ITask = req.body
 
     if (!userID || !task)
@@ -53,7 +53,7 @@ exports.addTask = async function(req, res) {
 
     try {
         await TaskModel.insertMany([task]);
-        return res.status(200).send('Task created');
+        return res.status(200).send(task);
     } catch (err) {
         return res.status(400).send(err);
     }
@@ -64,7 +64,7 @@ exports.addTask = async function(req, res) {
         param - id
 */
 exports.deleteTask = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const taskID = req.params.id;
     
     if (!userID || !taskID)
@@ -84,7 +84,7 @@ exports.deleteTask = async function(req, res) {
         body - name
 */
 exports.modifyTaskName = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const taskID = req.params.id;
     const name = req.body && req.body.name;
 
@@ -105,7 +105,7 @@ exports.modifyTaskName = async function(req, res) {
         body - description
 */
 exports.modifyTaskDescription = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const taskID = req.params.id;
     const description = req.body && req.body.description;
 
@@ -126,7 +126,7 @@ exports.modifyTaskDescription = async function(req, res) {
         param - categoryId
 */
 exports.addTaskCategory = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const taskID = req.params.id;
     const categoryID = req.params.categoryId;
 
@@ -147,7 +147,7 @@ exports.addTaskCategory = async function(req, res) {
         param - categoryId
 */
 exports.removeTaskCategory = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const taskID = req.params.id;
     const categoryID = req.params.categoryId;
 
@@ -168,7 +168,7 @@ exports.removeTaskCategory = async function(req, res) {
         body - start
 */
 exports.modifyTaskStart = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const taskID = req.params.id;
     const start = req.body && req.body.start;
 
@@ -189,7 +189,7 @@ exports.modifyTaskStart = async function(req, res) {
         body - end
 */
 exports.modifyTaskEnd = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const taskID = req.params.id;
     const end = req.body && req.body.end;
 
@@ -210,7 +210,7 @@ exports.modifyTaskEnd = async function(req, res) {
         param - tabId
 */
 exports.modifyTab = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const taskID = req.params.id;
     const tab = req.params.tabId;
 

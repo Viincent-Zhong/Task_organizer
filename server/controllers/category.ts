@@ -3,7 +3,7 @@ import { ICategory, CategoryModel } from "../models/category";
 
 // Get all categories
 exports.getAllCategories = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
 
     if (!userID)
         return res.status(400).send('Invalid request')
@@ -20,7 +20,7 @@ exports.getAllCategories = async function(req, res) {
         body - ICategory
 */
 exports.addCategory = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const category: ICategory = req.body
 
     if (!userID || !category)
@@ -31,7 +31,7 @@ exports.addCategory = async function(req, res) {
 
     try {
         await CategoryModel.insertMany([category]);
-        return res.status(200).send('Category created');
+        return res.status(200).send(category);
     } catch (err) {
         return res.status(400).send(err);
     }
@@ -42,7 +42,7 @@ exports.addCategory = async function(req, res) {
         param - id
 */
 exports.deleteCategory = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const categoryID = req.params.id;
 
     if (!userID || !categoryID)
@@ -62,7 +62,7 @@ exports.deleteCategory = async function(req, res) {
         body - name
 */
 exports.modifyCategoryName = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const categoryID = req.params.id;
     const name = req.body && req.body.name;
 

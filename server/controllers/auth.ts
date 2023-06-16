@@ -3,13 +3,9 @@ import { UserModel } from "../models/user";
 const jwt = require('jsonwebtoken');
 var CryptoJS = require("crypto-js");
 
-exports.test = function(req, res) {
-    res.send('doggi dog')
-};
-
 exports.logging_in = async function(req, res) {
     // Cookie already setup
-    if (req.cookies.auth)
+    if (req.signedCookies.auth)
         return res.status(200).send('User already connected');
     const gc = req.body.gcredential;
     if (!gc)

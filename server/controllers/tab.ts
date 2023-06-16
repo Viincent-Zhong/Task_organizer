@@ -3,7 +3,7 @@ import { ITab, TabModel } from "../models/tab";
 
 // Get all tabs
 exports.getAllTab = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
 
     if (!userID)
         return res.status(400).send('Invalid request')
@@ -20,18 +20,17 @@ exports.getAllTab = async function(req, res) {
         body - ITab
 */
 exports.addTab = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const tab: ITab = req.body
 
     if (!userID || !tab)
         return res.status(400).send('Invalid request')
-
     tab._id = new mongoose.Types.ObjectId();
     tab.createdBy = userID;
 
     try {
         await TabModel.insertMany([tab]);
-        return res.status(200).send('Tab created');
+        return res.status(200).send(tab);
     } catch (err) {
         return res.status(400).send(err);
     }
@@ -42,7 +41,7 @@ exports.addTab = async function(req, res) {
         param - id
 */
 exports.deleteTab = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const tabID = req.params.id;
 
     if (!userID || !tabID)
@@ -62,7 +61,7 @@ exports.deleteTab = async function(req, res) {
         body - name
 */
 exports.modifyTabName = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const tabID = req.params.id;
     const name = req.body && req.body.name;
 

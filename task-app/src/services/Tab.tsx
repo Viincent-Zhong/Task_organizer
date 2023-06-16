@@ -28,7 +28,7 @@ export const getAllTab = async () => {
 
 function requestAddTab(tab: ITab): Promise<any> {
     const url = `${BACKEND_URL}/tab/`;
-    return axios.post(url, JSON.stringify(tab),
+    return axios.post<ITab>(url, tab,
         {
             withCredentials: true // Set cookie in header
         }
@@ -39,7 +39,7 @@ export const addTab = async (tab: ITab) => {
     var res = await requestAddTab(tab)
 
     if (res.status === 200)
-        return
+        return res.data
     else {
         throw new Error('Request error')
     }

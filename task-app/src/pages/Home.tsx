@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { TaskTable, TableCreator } from "../components/TaskTable";
 import { RootState } from '../data/store';
-import { useSelector } from 'react-redux';
-import { ITab } from "../services/Tab";
+import { useDispatch, useSelector } from 'react-redux';
+import { ITab, getAllTab } from "../services/Tab";
+import { sliceAddManyTab } from '../data/tabSlice'
 
 export const Home = () => {
     const tabs = useSelector((state: RootState) => state.tab);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        try {
+            getAllTab().then(tabs => {
+                dispatch(sliceAddManyTab(tabs))
+            })
+        } catch (error) {
+        // popup
+        }
+    }, []);
 
     return (
         <div id="kanban-board">
@@ -14,7 +26,7 @@ export const Home = () => {
                 {tabs.map((tab: ITab) => (
                     <TaskTable tab={tab}/>
                 ))}
-                <TableCreator></TableCreator>
+                <TableCreator/>
                 </div>
             </div>
         </div>

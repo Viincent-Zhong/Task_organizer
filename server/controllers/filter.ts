@@ -3,7 +3,7 @@ import { IFilter, FilterModel } from "../models/filter";
 
 // Get all filters
 exports.getAllFilters = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
 
     if (!userID)
         return res.status(400).send('Invalid request')
@@ -20,7 +20,7 @@ exports.getAllFilters = async function(req, res) {
         body - IFilter
 */
 exports.addFilter = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const filter: IFilter = req.body
 
     if (!userID || !filter)
@@ -31,7 +31,7 @@ exports.addFilter = async function(req, res) {
 
     try {
         await FilterModel.insertMany([filter]);
-        return res.status(200).send('Filter created');
+        return res.status(200).send(filter);
     } catch (err) {
         return res.status(400).send(err);
     }
@@ -42,7 +42,7 @@ exports.addFilter = async function(req, res) {
         param - id
 */
 exports.deleteFilter = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const filterID = req.params.id;
 
     if (!userID || !filterID)
@@ -62,7 +62,7 @@ exports.deleteFilter = async function(req, res) {
         body - name
 */
 exports.modifyFilterName = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const filterID = req.params.id;
     const name = req.body && req.body.name;
 
@@ -83,7 +83,7 @@ exports.modifyFilterName = async function(req, res) {
         param - categoryID
 */
 exports.addFilterCategory = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const filterID = req.params.id;
     const categoryID = req.params.categoryId;
 
@@ -104,7 +104,7 @@ exports.addFilterCategory = async function(req, res) {
         param - categoryID
 */
 exports.removeFilterCategory = async function(req, res) {
-    const userID = req.cookies.auth;
+    const userID = req.signedCookies.auth;
     const filterID = req.params.id;
     const categoryID = req.params.categoryId;
 

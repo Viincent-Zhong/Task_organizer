@@ -28,7 +28,7 @@ export const getAllCategory = async () => {
 
 function requestAddCategory(category: ICategory): Promise<any> {
     const url = `${BACKEND_URL}/category/`;
-    return axios.post(url, JSON.stringify(category),
+    return axios.post<ICategory>(url, category,
         {
             withCredentials: true // Set cookie in header
         }
@@ -39,7 +39,7 @@ export const addCategory = async (category: ICategory) => {
     var res = await requestAddCategory(category)
 
     if (res.status === 200)
-        return
+        return res.data
     else {
         throw new Error('Request error')
     }

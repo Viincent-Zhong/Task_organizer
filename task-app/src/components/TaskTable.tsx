@@ -16,7 +16,7 @@ const TableModifierModal = ({closeButton: CloseButton, tab, setTab, delTab}) => 
                 var newTab: ITab = {
                     name: inputValue
                 }
-                addTab(newTab)
+                // addTab(newTab)
                 setTab(newTab)
             } catch (error) {
                 // popup
@@ -26,8 +26,8 @@ const TableModifierModal = ({closeButton: CloseButton, tab, setTab, delTab}) => 
         // Updating a tab name
         if (tab && tab.name !== inputValue) {
             try {
-                if (tab.id)
-                    updateTabName(tab.id, tab.name)
+                // if (tab.id)
+                    // updateTabName(tab.id, tab.name)
                 setTab({
                     ...tab,
                     name: inputValue
@@ -43,7 +43,7 @@ const TableModifierModal = ({closeButton: CloseButton, tab, setTab, delTab}) => 
         event.stopPropagation();
         if (tab && tab.id) {
             try {
-                deleteTab(tab.id)
+                // deleteTab(tab.id)
             } catch (error) {
                 // popup
             }
@@ -69,11 +69,17 @@ const TableModifierModal = ({closeButton: CloseButton, tab, setTab, delTab}) => 
 }
 
 export const TaskTable = ({tab} : { tab: ITab }) => {
+    const [selectedModal, setModal] = useState(null)
+    const closeModal = () => {
+        setModal(null);
+    }
+
     // button avec le name -> modal : rename, supprimer
     return (
         <div className="col-sm-1 col-md-1 col-lg-1 tab-name">
-            <button type="button" className="btn btn-primary btn-lg btn-block">{tab.name}</button>
+            <button type="button" className="btn btn-primary btn-lg btn-block tab-name" onClick={() => noPropagation(setModal(1))}>{tab.name}</button>
             <TaskCreator/>
+            <GlobalModal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TableModifierModal}></GlobalModal>
         </div>
     )
 }
@@ -83,16 +89,15 @@ export const TableCreator = () => {
     const createTab = (event) => {
         const inputValue = event.target.value;
         event.stopPropagation();
-        var newTab : ITab = {
-            name: inputValue
-        }
-        
         if (inputValue.trim().length > 0) {
             try {
-                // addTab(newTab) // call API
-                dispatch(sliceAddTab(newTab))
+                // API call
+                addTab({name: inputValue}).then(newTab => {
+                    dispatch(sliceAddTab(newTab))
+                })
                 event.target.value = ''; // Clear input value
             } catch (error) {
+                console.log(error)
                 // popup
             }
         }

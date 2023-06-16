@@ -55,7 +55,7 @@ export const getTask = async (taskID) => {
 
 function requestAddTask(task: ITask): Promise<any> {
     const url = `${BACKEND_URL}/task/`;
-    return axios.post(url, JSON.stringify(task),
+    return axios.post<ITask>(url, task,
         {
             withCredentials: true // Set cookie in header
         }
@@ -66,7 +66,7 @@ export const addTask = async (task: ITask) => {
     var res = await requestAddTask(task)
 
     if (res.status === 200)
-        return
+        return res.data
     else {
         throw new Error('Request error')
     }

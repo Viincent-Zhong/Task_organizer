@@ -29,7 +29,7 @@ export const getAllFilter = async () => {
 
 function requestAddFilter(filter: IFilter): Promise<any> {
     const url = `${BACKEND_URL}/filter/`;
-    return axios.post(url, JSON.stringify(filter),
+    return axios.post<IFilter>(url, filter,
         {
             withCredentials: true // Set cookie in header
         }
@@ -40,7 +40,7 @@ export const addFilter = async (filter: IFilter) => {
     var res = await requestAddFilter(filter)
 
     if (res.status === 200)
-        return
+        return res.data
     else {
         throw new Error('Request error')
     }
