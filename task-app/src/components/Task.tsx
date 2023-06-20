@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { GlobalModal, Modal, OpenButton } from '../components/Modal'
+import { ITask, addTask } from "../services/Task";
+import { ITabSlice } from "../data/tabSlice";
 
 export const TaskHeader = () => {
     return (
@@ -118,11 +120,29 @@ export const Task = () => {
     );
 }
 
-export const TaskCreator = () => {
+export const TaskCreator = ({parentTab} : {parentTab: ITabSlice}) => {
+    const createTask = (event) => {
+        const inputValue = event.target.value;
+        event.stopPropagation();
+        if (inputValue.trim().length > 0) {
+            try {
+                // addTask({})
+                // API call
+                // addTab({name: inputValue}).then(newTab => {
+                    // dispatch(sliceAddTab(newTab))
+                // })
+                event.target.value = ''; // Clear input value
+            } catch (error) {
+                // popup
+            }
+        }
+    }
+
     return (
         <div>
-            <input className="form" placeholder={"+ Add a task"}
-            />
+            <p>Name: {parentTab.tab.name}</p>
+            <p>ID: {parentTab.tab._id}</p>
+            <input className="form" placeholder={"+ Add a task"} onBlur={createTask}/>
         </div>
     )
 }

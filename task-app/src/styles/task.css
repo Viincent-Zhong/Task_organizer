@@ -1,0 +1,11 @@
+.task-create {
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: #b62a2a80;
+    font-family: "Courier New", monospace ! important;
+}
+
+.task-create:hover {
+    background-color: #47414180 ! important;
+    font-family: "Courier New", monospace;
+}

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { GlobalModal, noPropagation } from './Modal'
-import { ITab } from "../services/Tab";
 import { addTab, deleteTab, updateTabName } from '../services/Tab'
 import { useDispatch } from 'react-redux';
-import { sliceAddTab, sliceDeleteTab, sliceUpdateTab } from '../data/tabSlice'
+import { ITabSlice, sliceAddTab, sliceDeleteTab, sliceUpdateTab } from '../data/tabSlice'
 import { TaskCreator } from "./Task";
 
 const TableModifierModal = ({closeButton: CloseButton, tab}) => {
@@ -64,7 +63,7 @@ const TableModifierModal = ({closeButton: CloseButton, tab}) => {
     )
 }
 
-export const TaskTable = ({tab, modalNumber} : { tab: ITab, modalNumber: number }) => {
+export const TaskTable = ({itab, modalNumber} : { itab: ITabSlice, modalNumber: number }) => {
     const [selectedModal, setModal] = useState(null)
     const closeModal = () => {
         setModal(null);
@@ -74,9 +73,9 @@ export const TaskTable = ({tab, modalNumber} : { tab: ITab, modalNumber: number 
         <div className="col-sm-1 col-md-1 col-lg-1">
             <div className="tab-bg-parent">
                 {/* <div className="tab-bg"> */}
-                    <button type="button" className="btn tab-name" onClick={() => noPropagation(setModal(modalNumber))}>{tab.name}</button>
-                    <TaskCreator/>
-                    <GlobalModal modalNumber={modalNumber} isOpen={selectedModal} onClose={closeModal} component={TableModifierModal} tab={tab}></GlobalModal>
+                    <button type="button" className="btn tab-name" onClick={() => noPropagation(setModal(modalNumber))}>{itab.tab.name}</button>
+                    <TaskCreator parentTab={itab}/>
+                    <GlobalModal modalNumber={modalNumber} isOpen={selectedModal} onClose={closeModal} component={TableModifierModal} tab={itab.tab}></GlobalModal>
                 {/* </div> */}
             </div>
         </div>
