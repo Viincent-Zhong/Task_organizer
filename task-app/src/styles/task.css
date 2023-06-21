@@ -9,3 +9,12 @@
     background-color: #47414180 ! important;
     font-family: "Courier New", monospace;
 }
+
+.task-name {
+    width: 100%;
+    font-family: "Courier New", monospace;
+}
+
+.task-name:hover {
+    background-color: #47414180 ! important;
+}

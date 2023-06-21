@@ -112,9 +112,9 @@ export const Task = ({task} : {task: ITask}) => {
 
     return (
         <div>
-            <button onClick={() => {setModal(1)}}>
+            <button className="btn task-name" onClick={() => {setModal(1)}}>
+                {task.name}
             </button>
-            <h1>{task.name}</h1>
             <GlobalModal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TaskModal}></GlobalModal>
         </div>
     );
