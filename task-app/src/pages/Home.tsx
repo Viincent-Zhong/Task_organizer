@@ -3,7 +3,9 @@ import { TaskTable, TableCreator } from "../components/TaskTable";
 import { RootState } from '../data/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTab } from "../services/Tab";
+import { getAllTask } from "../services/Task";
 import { ITabSlice, sliceAddManyTab } from '../data/tabSlice'
+import { addManyTaskToSlice } from "../data/task";
 
 export const Home = () => {
     const itabs = useSelector((state: RootState) => state.tab);
@@ -13,6 +15,11 @@ export const Home = () => {
         try {
             getAllTab().then(tabs => {
                 dispatch(sliceAddManyTab(tabs))
+
+                getAllTask().then(tasks => {
+                    console.log(tasks)
+                    addManyTaskToSlice({dispatch, tabs, tasks})
+                })
             })
         } catch (error) {
         // popup

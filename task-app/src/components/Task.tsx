@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { GlobalModal, Modal, OpenButton } from '../components/Modal'
 import { ITask, addTask } from "../services/Task";
-import { ITabSlice } from "../data/tabSlice";
+import { ITabSlice, sliceAddTask } from "../data/tabSlice";
+import { useDispatch } from "react-redux";
 
 export const TaskHeader = () => {
     return (
@@ -103,34 +104,41 @@ const TaskModal = ({closeButton: CloseButton}) => {
     );
 }
 
-export const Task = () => {
+export const Task = ({task} : {task: ITask}) => {
     const [selectedModal, setModal] = useState(null)
     const closeModal = () => {
         setModal(null);
     }
 
     return (
-        <div style={{position: 'relative'}}>
+        <div>
             <button onClick={() => {setModal(1)}}>
-                {/* mettre la task */}
-                <div style={{width: '300px', height: '600px', background: 'blue'}}></div>
             </button>
+            <h1>{task.name}</h1>
             <GlobalModal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TaskModal}></GlobalModal>
         </div>
     );
 }
 
 export const TaskCreator = ({parentTab} : {parentTab: ITabSlice}) => {
+    const dispatch = useDispatch();
+
     const createTask = (event) => {
         const inputValue = event.target.value;
         event.stopPropagation();
         if (inputValue.trim().length > 0) {
             try {
-                // addTask({})
-                // API call
-                // addTab({name: inputValue}).then(newTab => {
-                    // dispatch(sliceAddTab(newTab))
-                // })
+                addTask({
+                    name: inputValue,
+                    description: "...Add a description",
+                    categories: [],
+                    tab: parentTab.tab._id
+                }).then(newTab => {
+                    dispatch(sliceAddTask({
+                        id: parentTab.tab._id,
+                        task: newTab
+                    }))
+                })
                 event.target.value = ''; // Clear input value
             } catch (error) {
                 // popup
@@ -140,8 +148,6 @@ export const TaskCreator = ({parentTab} : {parentTab: ITabSlice}) => {
 
     return (
         <div>
-            <p>Name: {parentTab.tab.name}</p>
-            <p>ID: {parentTab.tab._id}</p>
             <input className="form" placeholder={"+ Add a task"} onBlur={createTask}/>
         </div>
     )

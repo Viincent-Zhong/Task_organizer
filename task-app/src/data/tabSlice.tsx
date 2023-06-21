@@ -88,7 +88,6 @@ export const tabSlice = createSlice({
             const foundTask = tab.tasks.find(index => index._id === taskID);
             if (foundTask)
                 foundTask.time_start = sdate
-    
         },
         sliceUpdateTaskEndDate: (state, action: PayloadAction<{id: string, taskID: string, edate: Date}>) => {
             const { id, taskID, edate } = action.payload;

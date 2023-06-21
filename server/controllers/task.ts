@@ -50,7 +50,6 @@ exports.addTask = async function(req, res) {
 
     task._id = new mongoose.Types.ObjectId();
     task.createdBy = userID;
-
     try {
         await TaskModel.insertMany([task]);
         return res.status(200).send(task);
