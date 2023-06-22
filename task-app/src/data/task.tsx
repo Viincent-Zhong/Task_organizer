@@ -1,6 +1,5 @@
 import { ITab } from "../services/Tab";
 import { ITask } from "../services/Task"
-import { ITabSlice } from "./tabSlice"
 import { sliceAddManyTask } from "./tabSlice"
 
 export const addManyTaskToSlice = ({dispatch, tabs, tasks} : {dispatch, tabs : ITab[], tasks : ITask[]}) => {

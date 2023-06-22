@@ -5,7 +5,6 @@ import { succeedLogin, failedLogin } from '../services/Auth'
 import { useNavigate } from "react-router-dom"
 import { isLoggedIn } from "../services/Auth"
 
-// export default class Login extends React.Component {
 export const Login = () => {
     const navigate = useNavigate();
 
@@ -19,7 +18,7 @@ export const Login = () => {
         succeedLogin(credential).then((res) => {
             var status = Math.floor(res.status / 100) // one digit for hundreds
             
-            if (status == 2) { // Good code
+            if (status === 2) { // Good code
                 navigate('/')
             } else {
             }

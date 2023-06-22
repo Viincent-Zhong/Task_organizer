@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, combineReducers } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ITab } from '../services/Tab'
 import { ITask } from '../services/Task';
 
