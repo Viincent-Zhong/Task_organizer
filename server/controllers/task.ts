@@ -171,11 +171,11 @@ exports.modifyTaskStart = async function(req, res) {
     const taskID = req.params.id;
     const start = req.body && req.body.start;
 
-    if (!userID || !taskID || !start)
+    if (!userID || !taskID)
         return res.status(400).send('Invalid request');
 
     try {
-        await TaskModel.updateOne({ _id: taskID, createdBy: userID }, { time_start: new Date(start)})
+        await TaskModel.updateOne({ _id: taskID, createdBy: userID }, { time_start: start ? new Date(start) : null})
         return res.status(200).send('Task start date modified');
     } catch (err) {
         return res.status(400).send(err);
@@ -192,11 +192,11 @@ exports.modifyTaskEnd = async function(req, res) {
     const taskID = req.params.id;
     const end = req.body && req.body.end;
 
-    if (!userID || !taskID || !end)
+    if (!userID || !taskID)
         return res.status(400).send('Invalid request');
 
     try {
-        await TaskModel.updateOne({ _id: taskID, createdBy: userID }, { time_end: new Date(end)})
+        await TaskModel.updateOne({ _id: taskID, createdBy: userID }, { time_end: end ? new Date(end) : null})
         return res.status(200).send('Task end date modified');
     } catch (err) {
         return res.status(400).send(err);

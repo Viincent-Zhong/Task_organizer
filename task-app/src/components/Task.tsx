@@ -15,10 +15,10 @@ const TaskCategories = ({closeButton: CloseButton, userID}) => {
 }
 
 const DatesModule = ({dispatch, task} : {dispatch, task: ITask}) => {
-    const [startDate, setStartDate] = useState(task.time_start ? new Date(task.time_start) : new Date());
-    const [endDate, setEndDate] = useState(task.time_end ? new Date(task.time_end) : new Date());
+    const [startDate, setStartDate] = useState<Date | undefined>(task.time_start ? new Date(task.time_start) : undefined);
+    const [endDate, setEndDate] = useState<Date | undefined>(task.time_end ? new Date(task.time_end) : undefined);
 
-    const updateStartDate = (date: Date, event) => {
+    const updateStartDate = (date: Date | null, event) => {
         event.stopPropagation();
 
         try {
@@ -30,7 +30,7 @@ const DatesModule = ({dispatch, task} : {dispatch, task: ITask}) => {
         }
     }
 
-    const updateEndDate = (date: Date, event) => {
+    const updateEndDate = (date: Date | null, event) => {
         event.stopPropagation();
 
         try {
@@ -44,7 +44,7 @@ const DatesModule = ({dispatch, task} : {dispatch, task: ITask}) => {
     }
 
     return (
-        <div>
+        <div className="task-date-tab">
             <div>
                 <span> Start Date: </span>
                 <DatePicker selected={startDate} onChange={updateStartDate}/>
@@ -128,8 +128,6 @@ const TaskModal = ({task} : {task: ITask}) => {
     }
 
     // Categories
-    // Start
-    // End
 
     return (
         <div className="container tab">

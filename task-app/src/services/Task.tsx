@@ -164,7 +164,7 @@ export const removeTaskCategory = async (taskID, categoryID) => {
     }
 }
 
-function requestUpdateTaskStart(taskID, start: Date): Promise<any> {
+function requestUpdateTaskStart(taskID, start: Date | null): Promise<any> {
     const url = `${BACKEND_URL}/task/start/${taskID}`;
     return axios.patch(url, {start: start},
         {
@@ -173,7 +173,7 @@ function requestUpdateTaskStart(taskID, start: Date): Promise<any> {
     );
 }
 
-export const updateTaskStart = async (taskID, start: Date) => {
+export const updateTaskStart = async (taskID, start: Date | null) => {
     var res = await requestUpdateTaskStart(taskID, start)
 
     if (res.status === 200)

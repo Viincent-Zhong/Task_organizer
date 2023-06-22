@@ -80,7 +80,7 @@ export const tabSlice = createSlice({
             if (foundTask)
                 foundTask.description = description
         },
-        sliceUpdateTaskStartDate: (state, action: PayloadAction<{id: string, taskID: string, sdate: Date}>) => {
+        sliceUpdateTaskStartDate: (state, action: PayloadAction<{id: string, taskID: string, sdate: Date | null}>) => {
             const { id, taskID, sdate } = action.payload;
             const tab = state.find(indexTab => indexTab.tab._id === id);
             if (!tab)
@@ -89,7 +89,7 @@ export const tabSlice = createSlice({
             if (foundTask)
                 foundTask.time_start = sdate
         },
-        sliceUpdateTaskEndDate: (state, action: PayloadAction<{id: string, taskID: string, edate: Date}>) => {
+        sliceUpdateTaskEndDate: (state, action: PayloadAction<{id: string, taskID: string, edate: Date | null}>) => {
             const { id, taskID, edate } = action.payload;
             const tab = state.find(indexTab => indexTab.tab._id === id);
             if (!tab)
