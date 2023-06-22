@@ -11,6 +11,11 @@
     height:100%;
 }
 
+.form-resizable {
+    border: 2px solid #453e3efa;
+    border-radius: 5px;
+}
+
 .tab {
     display: flex;
     flex-direction: column;

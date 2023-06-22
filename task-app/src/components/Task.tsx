@@ -1,39 +1,8 @@
 import React, { useState } from "react";
 import { GlobalModal, Modal, OpenButton } from '../components/Modal'
-import { ITask, addTask } from "../services/Task";
-import { ITabSlice, sliceAddTask } from "../data/tabSlice";
+import { ITask, addTask, deleteTask, updateTaskDescription, updateTaskName } from "../services/Task";
+import { ITabSlice, sliceAddTask, sliceDeleteTask, sliceUpdateTaskDescription, sliceUpdateTaskName } from "../data/tabSlice";
 import { useDispatch } from "react-redux";
-
-export const TaskHeader = () => {
-    return (
-        <div style={{width: '300px', height: '300px', background: 'red'}}></div>
-    );
-}
-
-// Sur la task il y aura
-// Champs pour rename le nom
-// Champs pour changer description
-// Liste des catégories
-// Champs pour changer la date de début
-// Champs pour changer la date de fin
-// Bouton pour supprimer
-
-const TaskName = ({closeButton: CloseButton, userID, taskName }) => {
-    console.log(userID)
-    return (
-        <div style={{position: 'relative', height: '50px', width: '30px', background: 'yellow'}}>
-            {CloseButton}
-        </div>
-    )
-}
-
-const TaskDescription = ({closeButton: CloseButton, userID}) => {
-    return (
-        <div style={{position: 'relative', height: '50px', width: '50px', background: 'yellow'}}>
-            {CloseButton}
-        </div>
-    )
-}
 
 const TaskCategories = ({closeButton: CloseButton, userID}) => {
     return (
@@ -43,63 +12,97 @@ const TaskCategories = ({closeButton: CloseButton, userID}) => {
     )
 }
 
-const TaskDate = ({closeButton: CloseButton, userID}) => {
-    return (
-        <div style={{position: 'relative'}}>
-            {CloseButton}
-        </div>
-    )
-}
-
-const TaskDelete = ({closeButton: CloseButton, userID}) => {
-    return (
-        <div style={{position: 'relative', height: '50px', width: '500px', background: 'blue'}}>
-            {CloseButton}
-        </div>
-    )
-}
-
-const TaskModal = ({closeButton: CloseButton}) => {
+const TaskModal = ({closeButton: CloseButton, task} : {closeButton, task: ITask}) => {
     const [selectedModal, setModal] = useState(null)
     const closeModal = () => {
         setModal(null);
     }
 
+    const dispatch = useDispatch();
+
+    // Updating task name
+    const handleNameSubmit = (event) => {
+        const inputValue = event.target.value;
+        event.stopPropagation();
+        // Setted new name
+        if (task && inputValue.trim().length > 0 && task.name !== inputValue) {
+            try {
+                if (task._id) {
+                    updateTaskName(task._id, inputValue).then(() => {
+                        dispatch(sliceUpdateTaskName({
+                            id: task.tab,
+                            taskID: task._id,
+                            name: inputValue
+                        }))
+                    })
+                }
+            } catch (error) {
+                // popup
+            }
+            event.target.value = ''; // Clear input value
+            return;
+        }
+    }
+
+    // Updating task description
+    const handleDescriptionSubmit = (event) => {
+        const inputValue = event.target.value;
+        event.stopPropagation();
+        // Setted new name
+        if (task && inputValue.trim().length > 0) {
+            try {
+                if (task._id) {
+                    updateTaskDescription(task._id, inputValue).then(() => {
+                        dispatch(sliceUpdateTaskDescription({
+                            id: task.tab,
+                            taskID: task._id,
+                            description: inputValue
+                        }))
+                    })
+                }
+            } catch (error) {
+                // popup
+            }
+            event.target.value = ''; // Clear input value
+            return;
+        }
+    }
+
+    // Deleting task
+    const handleDelete = (event) => {
+        event.stopPropagation();
+        if (task && task._id) {
+            try {
+                deleteTask(task._id).then(() => {
+                    dispatch(sliceDeleteTask({id: task.tab, task: task}))
+                })
+            } catch (error) {
+                // popup
+            }
+        }
+    }
+
+    // Categories
+    // Start
+    // End
+
     return (
-        <div>
-            <div style={{position: 'relative', width: '400px', height: '300px', background: 'white'}}>
-                {CloseButton}
-                <OpenButton onClick={() => setModal(1)} component={() => {return (
-                    <div style={{width: '75px', height: '50px', background: 'red'}}/>
-                    )}}/>
-
-                <OpenButton onClick={() => setModal(2)} component={() => {return (
-                    <div style={{width: '75px', height: '50px', background: 'orange'}}/>
-                )}}/>
-
-                <OpenButton onClick={() => setModal(3)} component={() => {return (
-                    <div style={{width: '75px', height: '50px', background: 'yellow'}}/>
-                )}}/>
-
-                <OpenButton onClick={() => setModal(4)} component={() => {return (
-                    <div style={{width: '75px', height: '50px', background: 'green'}}/>
-                )}}/>
-
-                <OpenButton onClick={() => setModal(5)} component={() => {return (
-                    <div style={{width: '75px', height: '50px', background: 'indigo'}}/>
-                    )}}/>
-
-                <OpenButton onClick={() => setModal(6)} component={() => {return (
-                    <div style={{width: '75px', height: '50px', background: 'purple'}}/>
-                    )}}/>
-
+        <div className="container tab">
+            <div className="col flex-column">
+                <div className="col-lg-12">
+                    <div className="">
+                        <div className="modal-card tab">
+                            <textarea rows={1} cols={1} className="task-modal-name task-input" placeholder={task ? task.name : ""}
+                            onBlur={handleNameSubmit}
+                            />
+                            <textarea rows={5} cols={50} className="form-resizable task-input" placeholder={task ? task.description : ""}
+                            onBlur={handleDescriptionSubmit}
+                            />
+                            <button type="button" className="btn btn-danger" onClick={handleDelete}>Delete</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <Modal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TaskName} userID={1} taskName={'dog'}></Modal>
-            <Modal modalNumber={2} isOpen={selectedModal} onClose={closeModal} component={TaskDescription} userID={1}></Modal>
-            <Modal modalNumber={3} isOpen={selectedModal} onClose={closeModal} component={TaskCategories} userID={1}></Modal>
-            <Modal modalNumber={4} isOpen={selectedModal} onClose={closeModal} component={TaskDate} userID={1}></Modal>
-            <Modal modalNumber={5} isOpen={selectedModal} onClose={closeModal} component={TaskDate} userID={1}></Modal>
-            <Modal modalNumber={6} isOpen={selectedModal} onClose={closeModal} component={TaskDelete} userID={1}></Modal>
         </div>
     );
 }
@@ -115,7 +118,7 @@ export const Task = ({task} : {task: ITask}) => {
             <button className="btn task-name" onClick={() => {setModal(1)}}>
                 {task.name}
             </button>
-            <GlobalModal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TaskModal}></GlobalModal>
+            <GlobalModal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TaskModal} task={task}></GlobalModal>
         </div>
     );
 }

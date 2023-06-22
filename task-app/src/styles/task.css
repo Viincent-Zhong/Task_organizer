@@ -18,3 +18,23 @@
 .task-name:hover {
     background-color: #47414180 ! important;
 }
+
+.task-modal-name {
+    font-family: "Courier New", monospace;
+    border: none;
+    font-size: large;
+    margin-bottom: 10%;
+}
+
+.task-modal-name:hover {
+    border-radius: 5px;
+    background-color: #47414180;
+}
+
+.task-modal-name:focus {
+    outline: none;
+}
+
+.task-input {
+    resize: none;
+}
