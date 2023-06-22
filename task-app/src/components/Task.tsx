@@ -34,7 +34,7 @@ const DatesModule = ({dispatch, task} : {dispatch, task: ITask}) => {
         event.stopPropagation();
 
         try {
-            if (date >= startDate)
+            if (date >= startDate || !date)
             updateTaskEnd(task._id, date).then(() => {
                 dispatch(sliceUpdateTaskEndDate({id: task.tab, taskID: task._id, edate: date}))
                 setEndDate(date)
@@ -45,11 +45,11 @@ const DatesModule = ({dispatch, task} : {dispatch, task: ITask}) => {
 
     return (
         <div className="task-date-tab">
-            <div>
+            <div className="task-date">
                 <span> Start Date: </span>
                 <DatePicker selected={startDate} onChange={updateStartDate}/>
             </div>
-            <div>
+            <div className="task-date">
                 <span> End Date: </span>
                 <DatePicker selected={endDate} onChange={updateEndDate}/>
             </div>

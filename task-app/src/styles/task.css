@@ -43,7 +43,9 @@
     font-size: large;
     margin-top: 5%;
     margin-bottom: 5%;
+    display: flex;
 }
 
 .task-date {
+    flex: 1
 }

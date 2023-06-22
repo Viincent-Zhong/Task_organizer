@@ -183,7 +183,7 @@ export const updateTaskStart = async (taskID, start: Date | null) => {
     }
 }
 
-function requestUpdateTaskEnd(taskID, end: Date): Promise<any> {
+function requestUpdateTaskEnd(taskID, end: Date | null): Promise<any> {
     const url = `${BACKEND_URL}/task/end/${taskID}`;
     return axios.patch(url, {end: end},
         {
@@ -192,7 +192,7 @@ function requestUpdateTaskEnd(taskID, end: Date): Promise<any> {
     );
 }
 
-export const updateTaskEnd = async (taskID, end: Date) => {
+export const updateTaskEnd = async (taskID, end: Date | null) => {
     var res = await requestUpdateTaskEnd(taskID, end)
 
     if (res.status === 200)
