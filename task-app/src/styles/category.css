@@ -5,6 +5,10 @@
     font-size: medium;
     font-family: 'Courier New', Courier, monospace ! important;
     color: rgb(255, 255, 255) ! important;
+    text-align:center;
+    vertical-align:middle;
+    border: none;
+    border-radius: 5px;
 }
 
 .category-button:hover {
@@ -16,4 +20,61 @@
     width: 7.5%;
     margin-left: auto;
     padding-right: 1vh;
+}
+
+.category-modal-parent {
+    width: 100%;
+    height: 100%;
+    padding: 5%;
+}
+
+.category-modal-scroller {
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    width: 30vh;
+    padding: 5%;
+    background-color: rgba(225, 225, 225, 0.963);
+    border-radius: 5%;
+}
+
+.category-modal-cat {
+    display: flex;
+    flex-direction: row;
+}
+
+.category-close {
+    background-color: red;
+    outline: none;
+    border: red;
+    border-radius: 5px;
+    color: rgba(33, 33, 32, 0.621);
+    width: 15%;
+    height: 4vh;
+}
+
+.category-close:hover {
+    border-color: black;
+    border: 1px;
+}
+
+.category-name {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+    width: 85%;
+    height: 4vh;
+    margin-bottom: 0.5vh;
+}
+
+.category-list {
+    transform: translateX(-100%);
+}
+
+.category-create {
+    border: 2px solid #453e3efa;
+    border-radius: 5px;
+    width: 100%;
+    height: 3vh;
+    margin-bottom: 0.5vh;
 }

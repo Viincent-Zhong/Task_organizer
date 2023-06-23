@@ -50,3 +50,17 @@
 .task-date {
     flex: 1
 }
+
+.task-date-tag {
+    align-self: flex-start;
+}
+
+.task-categories {
+    position: fixed;
+    margin-top: 4vh;
+    height: 5vh;
+    width: 5vh;
+    right: 3vh;
+    text-align:center;
+    vertical-align:middle;
+}

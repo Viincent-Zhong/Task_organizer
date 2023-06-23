@@ -7,8 +7,20 @@ import { getAllTask } from "../services/Task";
 import { ITabSlice, sliceAddManyTab } from '../data/tabSlice'
 import { addManyTaskToSlice } from "../data/task";
 import { CategoryHomeBar } from "../components/Categories";
+import { getAllCategory } from "../services/Category";
+import { sliceAddManyCategory } from "../data/categorySlice";
 
 const NavBar = ({dispatch} : {dispatch}) => {
+    useEffect(() => {
+        try {
+            getAllCategory().then(categories => {
+                dispatch(sliceAddManyCategory(categories))
+            })
+        } catch (error) {
+        // popup
+        }
+    }, []);
+
     return (
         <div className="navbar">
             <CategoryHomeBar dispatch={dispatch}/>

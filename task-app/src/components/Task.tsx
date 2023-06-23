@@ -1,16 +1,83 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GlobalModal } from '../components/Modal'
-import { ITask, addTask, deleteTask, updateTaskDescription, updateTaskName, updateTaskStart, updateTaskEnd } from "../services/Task";
-import { ITabSlice, sliceAddTask, sliceDeleteTask, sliceUpdateTaskDescription, sliceUpdateTaskName, sliceUpdateTaskStartDate, sliceUpdateTaskEndDate } from "../data/tabSlice";
-import { useDispatch } from "react-redux";
+import { ITask, addTask, deleteTask, updateTaskDescription, updateTaskName, updateTaskStart, updateTaskEnd, addTaskCategory, removeTaskCategory } from "../services/Task";
+import { ITabSlice, sliceAddTask, sliceDeleteTask, sliceUpdateTaskDescription, sliceUpdateTaskName, sliceUpdateTaskStartDate, sliceUpdateTaskEndDate, sliceAddTaskCategory, sliceDeleteTaskCategory } from "../data/tabSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from '../data/store';
 import DatePicker from "react-datepicker"
+import { SelectedCategoryList, getCategoriesFromIds } from "./Categories";
 import "react-datepicker/dist/react-datepicker.css";
+import { ICategory } from "../services/Category";
+import { addCategory, deleteCategory, updateCategoryName } from '../services/Category';
+import { sliceAddCategory, sliceDeleteCategory, sliceUpdateCategory } from '../data/categorySlice';
 
-const TaskCategories = ({closeButton: CloseButton, userID}) => {
+const TaskCategories = ({task, icats} : {task: ITask, icats: ICategory[]}) => {
+    const dispatch = useDispatch();
+
+    const handleAddCat = (name) => {
+        try {
+                addCategory({
+                    name: name
+                }).then((newCategory) => {
+                    dispatch(sliceAddCategory(newCategory))
+                })
+        } catch (error) {
+            // popup
+        }
+    }
+
+    const handleDeleteCat = (id) => {
+        try {
+            deleteCategory(id).then(() => {
+                dispatch(sliceDeleteCategory(id))
+            })
+        } catch (error) {
+            // popup
+        }
+    }
+
+    const handleModCat = (id, name) => {
+        try {
+            updateCategoryName(id, name).then(() => {
+                dispatch(sliceUpdateCategory({id: id, name: name}))
+            })
+        } catch (error) {
+            // popup
+        }
+    }
+
+    const handleSelectCat = (id) => {
+        try {
+            addTaskCategory(task._id, id).then(() => {
+                dispatch(sliceAddTaskCategory({
+                    id: task.tab, taskID: task._id, categoryID: id
+                }))
+            })
+        } catch (error) {
+            // popup
+        }
+    }
+
+    const handleDeleteSelectCat = (id) => {
+        try {
+            removeTaskCategory(task._id, id).then(() => {
+                dispatch(sliceDeleteTaskCategory({
+                    id: task.tab, taskID: task._id, categoryID: id
+                }))
+            })
+        } catch (error) {
+            // popup
+        }
+    }
+
     return (
-        <div style={{position: 'relative'}}>
-            {CloseButton}
-        </div>
+        <SelectedCategoryList selected={getCategoriesFromIds({ids: task.categories, categories: icats})} categories={icats} modalStyle=""
+        handlers={{
+            handleAddCat: handleAddCat,
+            handleDeleteCat: handleDeleteCat,
+            handleModCat: handleModCat,
+            handleSelectCat: handleSelectCat
+        }} handleDelete={handleDeleteSelectCat}/>
     )
 }
 
@@ -57,7 +124,7 @@ const DatesModule = ({dispatch, task} : {dispatch, task: ITask}) => {
     )
 }
 
-const TaskModal = ({task} : {task: ITask}) => {
+const TaskModal = ({task, icats} : {task: ITask, icats: ICategory[]}) => {
     const dispatch = useDispatch();
     const [selectedModal, setModal] = useState(null)
     const closeModal = () => {
@@ -135,6 +202,7 @@ const TaskModal = ({task} : {task: ITask}) => {
                 <div className="col-lg-12">
                     <div className="">
                         <div className="modal-card tab">
+                            <TaskCategories task={task} icats={icats}/>
                             <textarea rows={1} cols={1} className="task-modal-name task-input" placeholder={task ? task.name : ""}
                             onBlur={handleNameSubmit}
                             />
@@ -152,6 +220,7 @@ const TaskModal = ({task} : {task: ITask}) => {
 }
 
 export const Task = ({task} : {task: ITask}) => {
+    const icats = useSelector((state: RootState) => state.category);
     const [selectedModal, setModal] = useState(null)
     const closeModal = () => {
         setModal(null);
@@ -162,7 +231,7 @@ export const Task = ({task} : {task: ITask}) => {
             <button className="btn task-name" onClick={() => {setModal(1)}}>
                 {task.name}
             </button>
-            <GlobalModal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TaskModal} task={task}></GlobalModal>
+            <GlobalModal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={TaskModal} task={task} icats={icats}></GlobalModal>
         </div>
     );
 }

@@ -128,7 +128,7 @@ export const updateTaskDescription = async (taskID, description: string) => {
 
 function requestAddTaskCategory(taskID, categoryID): Promise<any> {
     const url = `${BACKEND_URL}/task/category/${taskID}/${categoryID}`;
-    return axios.patch(url,
+    return axios.patch(url, {},
         {
             withCredentials: true // Set cookie in header
         }
@@ -147,7 +147,7 @@ export const addTaskCategory = async (taskID, categoryID) => {
 
 function requestRemoveTaskCategory(taskID, categoryID): Promise<any> {
     const url = `${BACKEND_URL}/task/category/${taskID}/${categoryID}`;
-    return axios.patch(url,
+    return axios.patch(url, {},
         {
             withCredentials: true // Set cookie in header
         }

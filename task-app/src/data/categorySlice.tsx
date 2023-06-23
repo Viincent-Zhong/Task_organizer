@@ -15,13 +15,11 @@ export const categorySlice = createSlice({
             const id = action.payload;
             return state.filter(category => category._id !== id);
         },
-        sliceUpdateCategory: (state, action: PayloadAction<ICategory>) => {
-            const category = action.payload;
-            const found = state.find(index => index._id === category._id);
-            if (found) {
-                found.name = category.name;
-            } else
-                state.push(category)
+        sliceUpdateCategory: (state, action: PayloadAction<{id: string, name: string}>) => {
+            const { id, name } = action.payload;
+            const found = state.find(index => index._id === id);
+            if (found)
+                found.name = name;
         },
     },
 });
