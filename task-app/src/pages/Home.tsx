@@ -6,12 +6,12 @@ import { getAllTab } from "../services/Tab";
 import { getAllTask } from "../services/Task";
 import { ITabSlice, sliceAddManyTab } from '../data/tabSlice'
 import { addManyTaskToSlice } from "../data/task";
-import { CategoryList } from "../components/Categories";
+import { CategoryHomeBar } from "../components/Categories";
 
-const NavBar = () => {
+const NavBar = ({dispatch} : {dispatch}) => {
     return (
         <div className="navbar">
-            {/* <CategoryList categories={[]} /> */}
+            <CategoryHomeBar dispatch={dispatch}/>
         </div>
     )
 }
@@ -36,13 +36,16 @@ export const Home = () => {
     }, []);
 
     return (
-        <div className="home-bg" id="kanban-board">
-            <div className="container-fluid">
-                <div className="row">
-                {itabs.map((itab: ITabSlice, index: number) => (
-                    <TaskTable key={itab.tab._id} itab={itab} modalNumber={index + 1}/>
-                ))}
-                <TableCreator/>
+        <div className="home-bg">
+            <NavBar dispatch={dispatch}/>
+            <div className="kanban-board">
+                <div className="container-fluid">
+                    <div className="row">
+                    {itabs.map((itab: ITabSlice, index: number) => (
+                        <TaskTable key={itab.tab._id} itab={itab} modalNumber={index + 1}/>
+                    ))}
+                    <TableCreator/>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,5 +1,19 @@
 .category-button {
-    width: 100;
-    height: 100;
-    background-color: aqua;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(7, 9, 9) ! important;
+    font-size: medium;
+    font-family: 'Courier New', Courier, monospace ! important;
+    color: rgb(255, 255, 255) ! important;
+}
+
+.category-button:hover {
+    background-color: #47414180 ! important;
+}
+
+.category-navbar {
+    height: 100%;
+    width: 7.5%;
+    margin-left: auto;
+    padding-right: 1vh;
 }
