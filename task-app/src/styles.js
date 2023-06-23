@@ -4,3 +4,4 @@ import './styles/home.css';
 import './styles/modal.css';
 import './styles/table.css';
 import './styles/task.css';
+import './styles/category.css';

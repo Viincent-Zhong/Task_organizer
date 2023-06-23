@@ -6,6 +6,15 @@ import { getAllTab } from "../services/Tab";
 import { getAllTask } from "../services/Task";
 import { ITabSlice, sliceAddManyTab } from '../data/tabSlice'
 import { addManyTaskToSlice } from "../data/task";
+import { CategoryList } from "../components/Categories";
+
+const NavBar = () => {
+    return (
+        <div className="navbar">
+            {/* <CategoryList categories={[]} /> */}
+        </div>
+    )
+}
 
 export const Home = () => {
     const itabs = useSelector((state: RootState) => state.tab);
