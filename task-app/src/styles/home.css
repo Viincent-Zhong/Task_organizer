@@ -24,10 +24,11 @@
 }
 
 .home-bg {
-    background-image: url('../assets/background.jpg');
+    /* background-image: url('../assets/background.jpg'); */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background: linear-gradient(287deg, rgba(41,48,94,0.1), rgba(148,111,226,1));;
 }
 
 .navbar {
@@ -36,7 +37,9 @@
     left: 0;
     width: 100%;
     height: 7vh;
-    background-color: #f1f1f1;
+    /* background-color: #f1f1f1; */
+    background: rgb(44,42,47);
+    background: linear-gradient(90deg, rgba(44,42,47,0.1516981792717087) 7%, rgba(67,72,80,0.2049194677871149) 42%, rgba(47,45,51,0.21612394957983194) 98%);
     display: flex;
     align-items: center;
     margin-bottom: 3vh;
