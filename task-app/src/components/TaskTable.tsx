@@ -75,10 +75,10 @@ export const TaskTable = ({itab, modalNumber} : { itab: ITabSlice, modalNumber: 
             <div className="tab-parent">
                 <button type="button" className="btn tab-name" onClick={() => noPropagation(setModal(modalNumber))}>{itab.tab.name}</button>
                 <div className="tab-bg-parent scroller">
+                    <TaskCreator parentTab={itab}/>
                     {itab.tasks.map((task: ITask, index: number) => (
                         <Task key={index} task={task}/>
                     ))}
-                    <TaskCreator parentTab={itab}/>
                     <GlobalModal modalNumber={modalNumber} isOpen={selectedModal} onClose={closeModal} component={TableModifierModal} tab={itab.tab}></GlobalModal>
                 </div>
             </div>

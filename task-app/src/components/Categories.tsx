@@ -59,7 +59,7 @@ export const CategoryList = ({categories, handlers, modalStyle} : {categories : 
 
     return (
         <span>
-            <button type="button" className="category-button" onClick={() => noPropagation(setModal(1))}>Tag</button>
+            <button type="button" className="category-button" onClick={() => noPropagation(setModal(1))}>Label</button>
             <div className={modalStyle}>
                 <Modal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={CategoryListModal} categories={categories} handlers={handlers}/>
             </div>
@@ -148,7 +148,7 @@ export const SelectedCategoryList = ({selected, categories, handlers, modalStyle
 
     return (
         <div className="task-categories">
-            <button type="button" className="category-button" onClick={() => noPropagation(setModal(1))}>Tag</button>
+            <button type="button" className="category-button" onClick={() => noPropagation(setModal(1))}>Label</button>
             <Modal modalNumber={1} isOpen={selectedModal} onClose={closeModal} component={SelectedCategoryListModal} selected={selected} categories={categories} handlers={handlers} modalStyle={modalStyle} handleDelete={handleDelete}/>
         </div>
     )

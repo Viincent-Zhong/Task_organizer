@@ -9,13 +9,13 @@
     background-color: #47414180 ! important;
 }
 
-.tab-parent {
+.tab-parent {   
     height: 70vh;
     /* display: flex; */
     /* align-items: center; */
-    /* background-color: #46cdd4; */
-    background: 
-    linear-gradient(269deg, rgba(123,127,46,0.1), rgba(151,101,35,0.8));
+    background-color: rgba(202, 197, 197, 0.805);
+    /* background:  */
+    /* linear-gradient(269deg, rgba(123,127,46,0.1), rgba(151,101,35,0.8)); */
     width: 100%;
     padding: 5%;
     border-radius: 15px;
